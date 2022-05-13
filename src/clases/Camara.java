@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
+package clases;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -19,12 +20,14 @@ public class Camara {
     private String modelo;
     private double precio;
     private ArrayList<Accesorio> accesorios = new ArrayList();
+   
 
     public Camara(int id,String marca, String modelo, double precio) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
         this.precio = precio;
+        
     }
     
     public int getId() {
@@ -66,6 +69,8 @@ public class Camara {
     public void setAccesorios(ArrayList<Accesorio> accesorios) {
         this.accesorios = accesorios;
     }
+
+    
     
     public void añadirAccesorio(Accesorio a){
         
