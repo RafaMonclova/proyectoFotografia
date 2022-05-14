@@ -9,51 +9,30 @@ package clases;
  *
  * @author RAFAEL MONCLOVA SUANO
  */
-public class Accesorio {
+public class Accesorio extends Producto{
+
     
-    private int id;
-    private String marca;
-    private String nombre;
-    private double precio;
-
-    public Accesorio(int id, String marca, String nombre, double precio) {
-        this.id = id;
-        this.marca = marca;
-        this.nombre = nombre;
-        this.precio = precio;
+    private String tipo;
+    
+    public Accesorio(int id, String marca, String modelo, double precio) {
+        super(id, marca, modelo, precio);
     }
 
-    public int getId() {
-        return id;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +"\n" +
+                "TIPO: "+tipo;
     }
     
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
+    
     
     
     

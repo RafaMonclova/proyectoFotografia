@@ -7,46 +7,18 @@ package clases;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import java.sql.*;
 /**
  *
  * @author alumno
  */
-public class CamaraBDD {
+public class CamaraBDD implements CamaraDAO{
     
-    //-----MySQL
-		static String MySQL_jdbcDriver="com.mysql.jdbc.Driver";
-		//static String prefix="jdbc:"+"mysql:";
-	
-		//static String MySQL_url="jdbc:mysql://localhost/sqlite/BD/BDEmpleados";	
-	
-	
-	 //----sqlite3
-		static String sqlite_jdbd_driver="org.sqlite.JDBC";
-		static String prefix="jdbc:mysql:";
-		static String hostName="http://www.sqlfiddle.com/#!9/ce9812/1";
-		static String urlFolder="";
-		static String dbName="";
-		
-		//static String url="jdbc:sqlite:/home/pub/miguelb/ad/tema2/dbms/sqlite3/ejemplo.db"; //Linux
-	    //static String url="jdbc:sqlite:D:/sqlite/BD/ejemplo.db";                            //Windows
-		                
-	   // static String url="jdbc:sqlite:C:\\Users\\migue\\Bibliotecas\\Documentos\\eclipse\\workspace-AD\\tema2.conectores\\ejemploJDBCGestionEmpleados\\src\\database\\ejemplo.db";
-
-		static String url=prefix+hostName+urlFolder+dbName;
-
-		//----jdbcOdbc
-		//static String Access_jdbcDriver="sun.jdbc.odbc.JdbcOdbcDriver";
-		//static String prefix="jdbc:"+"odbc:";
-		
-		//static String SQLite_url="jdbc:odbc:D:/sqlite/BD/BDGestionEmpleados";
-	
-		
-	//---------------------------Actual DB parameters-------------------------------
-	static String driver=MySQL_jdbcDriver;
-	//static String url=prefix+hostName+urlFolder+dbName;
-	static String user=""; //"user";
-	static String password=""; //"password";
+    String usuario = "usuario";
+    String clave = "root";
+    String url = "jdbc:mysql://localhost:3306/fotografia";
+   
+    
         
     public Camara creaCamara(){
         
@@ -92,6 +64,190 @@ public class CamaraBDD {
         }
             
         return c;
+        
+    }
+
+    @Override
+    public void update(Camara c) {
+        String update = "UPDATE CAMARA SET MARCA='"+c.getMarca()+"',"+"MODELO="+c.getModelo()+","+"PRECIO="+c.getPrecio()+"WHERE ID="+c.getId();
+           
+		 try{	
+		 	 
+			 Class.forName("com.mysql.cj.jdbc.Driver");
+						
+			 Connection connection=DriverManager.getConnection(url, usuario, clave);
+			
+			 Statement statement=connection.createStatement();
+			 
+			 
+			 try{
+			     statement.executeUpdate(update);
+			     System.out.println("Actualización realizada");
+			 }catch(SQLException sqle){
+				 System.out.println("SQL Exception");
+			 }
+			 
+			 statement.close();
+			 connection.close();
+			 	 
+						
+		 }catch(ClassNotFoundException cnfe){  
+				System.out.printf("Not found the jdbc driver %s\n");
+		 }catch (SQLException sqle){
+				System.out.println("SQL Exception");
+                                sqle.printStackTrace();
+		 }
+    }
+
+    @Override
+    public void insert(Camara c) {
+        
+        String insert="INSERT INTO CAMARA VALUES("+c.getId()+",'"+c.getMarca()+"','"+c.getModelo()+"',"+c.getPrecio()+")";
+        
+        try{	
+		 	 
+			 Class.forName("com.mysql.cj.jdbc.Driver");
+						
+			 Connection connection=DriverManager.getConnection(url, usuario, clave);
+			
+			 Statement statement=connection.createStatement();
+			 
+			 
+			 try{
+			     statement.executeUpdate(insert);
+			     System.out.println("Inserción realizada");
+			 }catch(SQLException sqle){
+				 System.out.println("SQL Exception 1");
+			 }
+			 
+			 statement.close();
+			 connection.close();
+			 	 
+						
+		 }catch(ClassNotFoundException cnfe){  
+				System.out.printf("Not found the jdbc driver %s\n");
+		 }catch (SQLException sqle){
+				System.out.println("SQL Exception 2");
+                                sqle.printStackTrace();
+		 }
+        
+    }
+
+    @Override
+    public void delete(int id) {
+        
+        String delete="DELETE FROM CAMARA WHERE ID="+id;
+        
+        try{	
+		 	 
+			 Class.forName("com.mysql.cj.jdbc.Driver");
+						
+			 Connection connection=DriverManager.getConnection(url, usuario, clave);
+			
+			 Statement statement=connection.createStatement();
+			 
+			 
+			 try{
+			     statement.executeUpdate(delete);
+			     System.out.println("Borrado realizado");
+			 }catch(SQLException sqle){
+				 System.out.println("SQL Exception 1");
+			 }
+			 
+			 statement.close();
+			 connection.close();
+			 	 
+						
+		 }catch(ClassNotFoundException cnfe){  
+				System.out.printf("Not found the jdbc driver %s\n");
+		 }catch (SQLException sqle){
+				System.out.println("SQL Exception 2");
+                                sqle.printStackTrace();
+		 }
+        
+    }
+
+    @Override
+    public Camara read(int id) {
+        
+        Camara c = null;
+        
+        String query="SELECT * FROM CAMARA WHERE ID="+id;
+				
+	 try{	
+	 	 
+                 
+         
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+
+            Connection connection=DriverManager.getConnection(url, usuario, clave);
+
+	     
+		 Statement statement=connection.createStatement();
+		 ResultSet result=statement.executeQuery(query);
+		 
+		 
+		 while(result.next()){ 
+                         
+                         c = new Camara(result.getInt(1),result.getString(2),result.getString(3),result.getDouble(4));
+		 }
+		 
+		 result.close(); 
+		 statement.close();
+		 connection.close();
+					
+	 }catch(ClassNotFoundException cnfe){  
+			System.out.printf("Not found the jdbc driver %s\n");
+	 }catch (SQLException sqle){
+			System.out.println("SQL Exception");
+                        System.out.println(sqle.getMessage());
+                      sqle.printStackTrace();
+                        
+	 }					
+        return c;
+        
+    }
+    
+    public ArrayList<Camara> readAll() {
+        
+        ArrayList<Camara> camaras = new ArrayList();
+        
+        String query="SELECT * FROM CAMARA";
+				
+	 try{	
+	 	 
+                 
+         
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+
+            Connection connection=DriverManager.getConnection(url, usuario, clave);
+
+	     
+		 Statement statement=connection.createStatement();
+		 ResultSet result=statement.executeQuery(query);
+		 
+		 
+		 while(result.next()){ 
+                         
+                         Camara c = new Camara(result.getInt(1),result.getString(2),result.getString(3),result.getDouble(4));
+                         camaras.add(c);
+		 }
+		 
+		 result.close(); 
+		 statement.close();
+		 connection.close();
+					
+	 }catch(ClassNotFoundException cnfe){  
+			System.out.printf("Not found the jdbc driver %s\n");
+	 }catch (SQLException sqle){
+			System.out.println("SQL Exception");
+                        System.out.println(sqle.getMessage());
+                      sqle.printStackTrace();
+                        
+	 }					
+        return camaras;
         
     }
     
