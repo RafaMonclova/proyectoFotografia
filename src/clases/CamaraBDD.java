@@ -5,9 +5,15 @@
  */
 package clases;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author alumno
@@ -62,6 +68,9 @@ public class CamaraBDD implements CamaraDAO{
              
             
         }
+    
+        System.out.println("Desea cargar una imagen?");
+        
             
         return c;
         
@@ -69,7 +78,7 @@ public class CamaraBDD implements CamaraDAO{
 
     @Override
     public void update(Camara c) {
-        String update = "UPDATE CAMARA SET MARCA='"+c.getMarca()+"',"+"MODELO="+c.getModelo()+","+"PRECIO="+c.getPrecio()+"WHERE ID="+c.getId();
+        String update = "UPDATE CAMARA SET ID="+c.getId()+","+"MARCA='"+c.getMarca()+"',"+"MODELO='"+c.getModelo()+"',"+"PRECIO="+c.getPrecio()+"WHERE ID="+c.getId();
            
 		 try{	
 		 	 
@@ -102,25 +111,30 @@ public class CamaraBDD implements CamaraDAO{
     @Override
     public void insert(Camara c) {
         
-        String insert="INSERT INTO CAMARA VALUES("+c.getId()+",'"+c.getMarca()+"','"+c.getModelo()+"',"+c.getPrecio()+")";
+        
         
         try{	
 		 	 
 			 Class.forName("com.mysql.cj.jdbc.Driver");
 						
 			 Connection connection=DriverManager.getConnection(url, usuario, clave);
-			
-			 Statement statement=connection.createStatement();
+                         PreparedStatement ps = null;
+                         InputStream is = null;
+			ps = connection.prepareCall("INSERT INTO CAMARA VALUES("+c.getId()+",'"+c.getMarca()+"','"+c.getModelo()+"',"+c.getPrecio()+","+"?"+")");
+                        is = new FileInputStream(new File(c.getModelo()+".png"));
+                        ps.setBinaryStream(1, is);
+			 //Statement statement=connection.createStatement();
 			 
 			 
 			 try{
-			     statement.executeUpdate(insert);
+                             ps.executeUpdate();
+			     //statement.executeUpdate(insert);
 			     System.out.println("Inserción realizada");
 			 }catch(SQLException sqle){
 				 System.out.println("SQL Exception 1");
 			 }
 			 
-			 statement.close();
+			 ps.close();
 			 connection.close();
 			 	 
 						
@@ -129,7 +143,41 @@ public class CamaraBDD implements CamaraDAO{
 		 }catch (SQLException sqle){
 				System.out.println("SQL Exception 2");
                                 sqle.printStackTrace();
-		 }
+		 } catch (FileNotFoundException ex) {
+                      try{	
+		 	 
+			 Class.forName("com.mysql.cj.jdbc.Driver");
+						
+			 Connection connection=DriverManager.getConnection(url, usuario, clave);
+                         PreparedStatement ps = null;
+                         InputStream is = null;
+			ps = connection.prepareCall("INSERT INTO CAMARA VALUES("+c.getId()+",'"+c.getMarca()+"','"+c.getModelo()+"',"+c.getPrecio()+","+"?"+")");
+                        is = new FileInputStream(new File("default.png"));
+                        ps.setBinaryStream(1, is);
+			 //Statement statement=connection.createStatement();
+			 
+			 
+			 try{
+                             ps.executeUpdate();
+			     //statement.executeUpdate(insert);
+			     System.out.println("Inserción realizada");
+			 }catch(SQLException sqle){
+				 System.out.println("SQL Exception 3");
+			 }
+			 
+			 ps.close();
+			 connection.close();
+			 	 
+						
+		 } catch (ClassNotFoundException ex1) {
+                Logger.getLogger(CamaraBDD.class.getName()).log(Level.SEVERE, null, ex1);
+            } catch (SQLException ex1) {
+                Logger.getLogger(CamaraBDD.class.getName()).log(Level.SEVERE, null, ex1);
+            } catch (FileNotFoundException ex1) {
+                Logger.getLogger(CamaraBDD.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        
         
     }
 

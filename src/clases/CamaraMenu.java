@@ -30,7 +30,6 @@ public class CamaraMenu extends javax.swing.JFrame {
         botonVer = new javax.swing.JButton();
         botonInsertar = new javax.swing.JButton();
         botonModificar = new javax.swing.JButton();
-        botonBorrar = new javax.swing.JButton();
         botonBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -59,8 +58,6 @@ public class CamaraMenu extends javax.swing.JFrame {
 
         botonModificar.setText("Modificar producto");
 
-        botonBorrar.setText("Borrar producto");
-
         botonBuscar.setText("Buscar producto");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,8 +80,7 @@ public class CamaraMenu extends javax.swing.JFrame {
                             .addComponent(botonModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(botonInsertar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(botonBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botonVer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botonBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(botonVer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(174, 174, 174))))
         );
         layout.setVerticalGroup(
@@ -100,9 +96,7 @@ public class CamaraMenu extends javax.swing.JFrame {
                 .addComponent(botonInsertar)
                 .addGap(18, 18, 18)
                 .addComponent(botonModificar)
-                .addGap(18, 18, 18)
-                .addComponent(botonBorrar)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
 
         pack();
@@ -168,7 +162,6 @@ public class CamaraMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonBorrar;
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonInsertar;
     private javax.swing.JButton botonModificar;

@@ -36,7 +36,6 @@
                           <Component id="botonInsertar" alignment="1" max="32767" attributes="0"/>
                           <Component id="botonBuscar" alignment="1" max="32767" attributes="0"/>
                           <Component id="botonVer" alignment="1" max="32767" attributes="0"/>
-                          <Component id="botonBorrar" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
                   </Group>
@@ -57,9 +56,7 @@
               <Component id="botonInsertar" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="botonModificar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="botonBorrar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="146" max="32767" attributes="0"/>
+              <EmptySpace pref="187" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -103,11 +100,6 @@
     <Component class="javax.swing.JButton" name="botonModificar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Modificar producto"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="botonBorrar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Borrar producto"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="botonBuscar">

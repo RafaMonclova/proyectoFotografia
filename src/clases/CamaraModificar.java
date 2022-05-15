@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
@@ -23,18 +24,88 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author usuario
  */
-public class CamaraInsertar extends javax.swing.JFrame {
+public class CamaraModificar extends javax.swing.JFrame {
 
     private int id = 0;
     JButton button = new JButton();
     /**
      * Creates new form CamaraVentana
      */
-    public CamaraInsertar() {
+    public CamaraModificar() {
         initComponents();
+        
+        CamaraBDD camaras = new CamaraBDD();
+        ArrayList<Camara> lista = camaras.readAll();
+        
+        for (int i = 0; i < lista.size(); i++) {
+            final Camara actual = lista.get(i);
+            Object[] row = { lista.get(i).getId(), lista.get(i).getMarca(), lista.get(i).getModelo(), lista.get(i).getPrecio() };
+            DefaultTableModel tbl = (DefaultTableModel)jTable1.getModel();
+            
+            jTable1.getColumn("ACCION").setCellRenderer(new ButtonRenderer());
+            jTable1.getColumn("ACCION").setCellEditor(new ButtonEditor(new JCheckBox()));
+ 
+            
+            
+            tbl.addRow(row);
+        }
+        
+        
+        button.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = jTable1.getSelectedRow();
+                String id = jTable1.getModel().getValueAt(row, 0).toString();
+                String marca = jTable1.getModel().getValueAt(row, 1).toString();
+                String modelo = jTable1.getModel().getValueAt(row, 2).toString();
+                String precio = jTable1.getModel().getValueAt(row, 3).toString();
+                
+                campoID.setText(id);
+                campoMarca.setText(marca);
+                campoModelo.setText(modelo);
+                campoPrecio.setText(precio);
+                
+                
+                
+            }
+        });
+        
+        
     }
     
+      class ButtonRenderer extends JButton implements TableCellRenderer 
+  {
+    public ButtonRenderer() {
+      setOpaque(true);
+    }
+    public Component getTableCellRendererComponent(JTable table, Object value,
+    boolean isSelected, boolean hasFocus, int row, int column) {
+      setText((value == null) ? "ACTUALIZAR DATOS" : value.toString());
+      return this;
+    }
+  }
+  class ButtonEditor extends DefaultCellEditor 
+  {
+    private String label;
     
+    public ButtonEditor(JCheckBox checkBox)
+    {
+      super(checkBox);
+    }
+    public Component getTableCellEditorComponent(JTable table, Object value,
+    boolean isSelected, int row, int column) 
+    {
+      label = (value == null) ? "ACTUALIZAR DATOS" : value.toString();
+      button.setText(label);
+      
+      return button;
+    }
+    public Object getCellEditorValue() 
+    {
+      return new String(label);
+    }
+  }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,7 +117,7 @@ public class CamaraInsertar extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        botonInsertar = new javax.swing.JButton();
+        botonBuscar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         campoID = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -67,10 +138,10 @@ public class CamaraInsertar extends javax.swing.JFrame {
         jLabel1.setName(""); // NOI18N
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        botonInsertar.setText("Insertar");
-        botonInsertar.addActionListener(new java.awt.event.ActionListener() {
+        botonBuscar.setText("Guardar cambios");
+        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonInsertarActionPerformed(evt);
+                botonBuscarActionPerformed(evt);
             }
         });
 
@@ -88,7 +159,7 @@ public class CamaraInsertar extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "MARCA", "MODELO", "PRECIO", "IMAGEN"
+                "ID", "MARCA", "MODELO", "PRECIO", "ACCION"
             }
         ) {
             Class[] types = new Class [] {
@@ -138,7 +209,7 @@ public class CamaraInsertar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(278, 278, 278)
-                        .addComponent(botonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,7 +261,7 @@ public class CamaraInsertar extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(botonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
@@ -201,7 +272,7 @@ public class CamaraInsertar extends javax.swing.JFrame {
         
     }//GEN-LAST:event_campoIDActionPerformed
 
-    private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         
 
         CamaraBDD camaras = new CamaraBDD();
@@ -209,32 +280,12 @@ public class CamaraInsertar extends javax.swing.JFrame {
         try {
             c.setImagen(new FileInputStream(new File(c.getModelo()+".png")));
         } catch (FileNotFoundException ex) {
-            try {
-                c.setImagen(new FileInputStream(new File("default.png")));
-            } catch (FileNotFoundException ex1) {
-                Logger.getLogger(CamaraInsertar.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+            Logger.getLogger(CamaraModificar.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        camaras.insert(c);
+        camaras.update(c);
         Object[] row = { c.getId(), c.getMarca(), c.getModelo(), c.getPrecio()};
         DefaultTableModel tbl = (DefaultTableModel)jTable1.getModel();
-        
-        jTable1.getColumn("IMAGEN").setCellRenderer(new ButtonRenderer());
-        jTable1.getColumn("IMAGEN").setCellEditor(new ButtonEditor(new JCheckBox()));
-        
-        button.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int row = jTable1.getSelectedRow();
-                String value = jTable1.getModel().getValueAt(row, 2).toString();
-                CargarImagen prueba = new CargarImagen(value);
-                prueba.setVisible(true);
-                
-            }
-        });
-        
         tbl.addRow(row);
         
         campoID.setText("");
@@ -246,39 +297,8 @@ public class CamaraInsertar extends javax.swing.JFrame {
         prueba.setVisible(true);
         
         
-    }//GEN-LAST:event_botonInsertarActionPerformed
-class ButtonRenderer extends JButton implements TableCellRenderer 
-  {
-    public ButtonRenderer() {
-      setOpaque(true);
-    }
-    public Component getTableCellRendererComponent(JTable table, Object value,
-    boolean isSelected, boolean hasFocus, int row, int column) {
-      setText((value == null) ? "Ver imagen" : value.toString());
-      return this;
-    }
-  }
-  class ButtonEditor extends DefaultCellEditor 
-  {
-    private String label;
-    
-    public ButtonEditor(JCheckBox checkBox)
-    {
-      super(checkBox);
-    }
-    public Component getTableCellEditorComponent(JTable table, Object value,
-    boolean isSelected, int row, int column) 
-    {
-      label = (value == null) ? "Ver Imagen" : value.toString();
-      button.setText(label);
-      
-      return button;
-    }
-    public Object getCellEditorValue() 
-    {
-      return new String(label);
-    }
-  }
+    }//GEN-LAST:event_botonBuscarActionPerformed
+
     private void campoMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoMarcaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoMarcaActionPerformed
@@ -308,14 +328,18 @@ class ButtonRenderer extends JButton implements TableCellRenderer
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CamaraInsertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CamaraModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CamaraInsertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CamaraModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CamaraInsertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CamaraModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CamaraInsertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CamaraModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -324,13 +348,13 @@ class ButtonRenderer extends JButton implements TableCellRenderer
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CamaraInsertar().setVisible(true);
+                new CamaraModificar().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonInsertar;
+    private javax.swing.JButton botonBuscar;
     private javax.swing.JTextField campoID;
     private javax.swing.JTextField campoMarca;
     private javax.swing.JTextField campoModelo;

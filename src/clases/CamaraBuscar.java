@@ -4,7 +4,15 @@
  */
 package clases;
 
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -13,11 +21,23 @@ import javax.swing.table.DefaultTableModel;
 public class CamaraBuscar extends javax.swing.JFrame {
 
     private int id = 0;
+    JButton button = new JButton();
     /**
      * Creates new form CamaraVentana
      */
     public CamaraBuscar() {
         initComponents();
+        button.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = jTable1.getSelectedRow();
+                String value = jTable1.getModel().getValueAt(row, 2).toString();
+                CargarImagen prueba = new CargarImagen(value);
+                prueba.setVisible(true);
+                
+            }
+        });
     }
 
     /**
@@ -65,11 +85,11 @@ public class CamaraBuscar extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "MARCA", "MODELO", "PRECIO"
+                "ID", "MARCA", "MODELO", "PRECIO", "IMAGEN"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -133,10 +153,45 @@ public class CamaraBuscar extends javax.swing.JFrame {
         Camara c = camaras.read(id);
         Object[] row = { c.getId(), c.getMarca(), c.getModelo(), c.getPrecio() };
         DefaultTableModel tbl = (DefaultTableModel)jTable1.getModel();
+        
+        jTable1.getColumn("IMAGEN").setCellRenderer(new ButtonRenderer());
+        jTable1.getColumn("IMAGEN").setCellEditor(new ButtonEditor(new JCheckBox()));
+        
         tbl.addRow(row);
         
     }//GEN-LAST:event_botonBuscarActionPerformed
-
+class ButtonRenderer extends JButton implements TableCellRenderer 
+  {
+    public ButtonRenderer() {
+      setOpaque(true);
+    }
+    public Component getTableCellRendererComponent(JTable table, Object value,
+    boolean isSelected, boolean hasFocus, int row, int column) {
+      setText((value == null) ? "Ver imagen" : value.toString());
+      return this;
+    }
+  }
+  class ButtonEditor extends DefaultCellEditor 
+  {
+    private String label;
+    
+    public ButtonEditor(JCheckBox checkBox)
+    {
+      super(checkBox);
+    }
+    public Component getTableCellEditorComponent(JTable table, Object value,
+    boolean isSelected, int row, int column) 
+    {
+      label = (value == null) ? "Ver Imagen" : value.toString();
+      button.setText(label);
+      
+      return button;
+    }
+    public Object getCellEditorValue() 
+    {
+      return new String(label);
+    }
+  }
     /**
      * @param args the command line arguments
      */

@@ -4,8 +4,18 @@
  */
 package clases;
 
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -14,6 +24,8 @@ import javax.swing.table.DefaultTableModel;
 public class CamaraVer extends javax.swing.JFrame {
 
     private int id = 0;
+    JButton button = new JButton();
+    DefaultTableModel tbl;
     /**
      * Creates new form CamaraVentana
      */
@@ -24,15 +36,66 @@ public class CamaraVer extends javax.swing.JFrame {
         ArrayList<Camara> lista = camaras.readAll();
         
         for (int i = 0; i < lista.size(); i++) {
+            final Camara actual = lista.get(i);
             Object[] row = { lista.get(i).getId(), lista.get(i).getMarca(), lista.get(i).getModelo(), lista.get(i).getPrecio() };
-            DefaultTableModel tbl = (DefaultTableModel)jTable1.getModel();
+            tbl = (DefaultTableModel)jTable1.getModel();
+            
+            jTable1.getColumn("IMAGEN").setCellRenderer(new ButtonRenderer());
+            jTable1.getColumn("IMAGEN").setCellEditor(new ButtonEditor(new JCheckBox()));
+ 
+            
             tbl.addRow(row);
         }
         
+        button.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = jTable1.getSelectedRow();
+                String value = jTable1.getModel().getValueAt(row, 2).toString();
+                CargarImagen prueba = new CargarImagen(value);
+                prueba.setVisible(true);
+                
+            }
+        });
         
         
     }
     
+    
+    
+    class ButtonRenderer extends JButton implements TableCellRenderer 
+  {
+    public ButtonRenderer() {
+      setOpaque(true);
+    }
+    public Component getTableCellRendererComponent(JTable table, Object value,
+    boolean isSelected, boolean hasFocus, int row, int column) {
+      setText((value == null) ? "Ver imagen" : value.toString());
+      return this;
+    }
+  }
+  class ButtonEditor extends DefaultCellEditor 
+  {
+    private String label;
+    
+    public ButtonEditor(JCheckBox checkBox)
+    {
+      super(checkBox);
+    }
+    public Component getTableCellEditorComponent(JTable table, Object value,
+    boolean isSelected, int row, int column) 
+    {
+      label = (value == null) ? "Ver Imagen" : value.toString();
+      button.setText(label);
+      
+      return button;
+    }
+    public Object getCellEditorValue() 
+    {
+      return new String(label);
+    }
+  }
     
         
 
@@ -49,6 +112,7 @@ public class CamaraVer extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Fira Sans Heavy", 0, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -66,11 +130,11 @@ public class CamaraVer extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "MARCA", "MODELO", "PRECIO"
+                "ID", "MARCA", "MODELO", "PRECIO", "IMAGEN"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -79,14 +143,17 @@ public class CamaraVer extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jButton1.setText("Borrar producto");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel2)
-                .addContainerGap(542, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,6 +163,15 @@ public class CamaraVer extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(283, 283, 283)
+                        .addComponent(jButton1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,11 +182,27 @@ public class CamaraVer extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addGap(52, 52, 52)
+                .addComponent(jButton1)
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        
+        int row = jTable1.getSelectedRow();
+                String id = jTable1.getModel().getValueAt(row, 0).toString();
+                
+                
+                CamaraBDD camaras = new CamaraBDD();
+                camaras.delete(Integer.parseInt(id));
+                tbl.removeRow(row);
+                
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,6 +243,7 @@ public class CamaraVer extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
