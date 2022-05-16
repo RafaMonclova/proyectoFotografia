@@ -11,20 +11,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 
 /**
  *
  * @author usuario
  */
-public class CargarImagen extends JFrame{
+public class CargarImagen extends JInternalFrame{
     
     public CargarImagen(String modelo) 
   {
     super("Imagen");
-    setSize(300, 300);
+    setSize(240, 240);
     
-    
+    setTitle("Imagen del producto");
     try { 
       //creation and execution of the request
       Class.forName("com.mysql.cj.jdbc.Driver");

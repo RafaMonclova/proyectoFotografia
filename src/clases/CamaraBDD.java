@@ -24,57 +24,6 @@ public class CamaraBDD implements CamaraDAO{
     String clave = "root";
     String url = "jdbc:mysql://localhost:3306/fotografia";
    
-    
-        
-    public Camara creaCamara(){
-        
-    Scanner sc = new Scanner(System.in);
-            
-    System.out.println("Introduce id de la cámara");
-    int id = sc.nextInt();
-    sc.nextLine();
-    System.out.println("Introduce marca");
-    String marca = sc.nextLine();
-    System.out.println("Introduce modelo");
-    String modelo = sc.nextLine();
-    System.out.println("Introduce precio");
-    double precio = sc.nextDouble();
-    System.out.println("Tiene accesorios? s/n");
-    char accesorioSiNo = sc.next().charAt(0);
-    Camara c = new Camara(id,marca,modelo,precio);
-        
-        if(accesorioSiNo == 's'){
-            
-            System.out.println("Cuántos accesorios desea añadir?");
-            int numAccesorios = sc.nextInt();
-            
-            for (int i = 0; i < numAccesorios; i++) {
-                
-                System.out.println("--DATOS DEL ACCESORIO--");
-                System.out.println("Introduce id");
-                int idAcc = sc.nextInt();
-                sc.nextLine();
-                System.out.println("Introduce marca");
-                String marcaAcc = sc.nextLine();
-                System.out.println("Introduce nombre");
-                String nombre = sc.nextLine();
-                System.out.println("Introduce precio");
-                double precioAcc = sc.nextDouble();
-            
-                Accesorio a = new Accesorio(idAcc,marcaAcc,nombre,precioAcc);
-                c.añadirAccesorio(a);
-                
-            }
-             
-            
-        }
-    
-        System.out.println("Desea cargar una imagen?");
-        
-            
-        return c;
-        
-    }
 
     @Override
     public void update(Camara c) {

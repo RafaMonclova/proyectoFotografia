@@ -23,20 +23,13 @@ import javax.imageio.ImageIO;
 public class Camara extends Producto{
     
     
-    private ArrayList<Accesorio> accesorios = new ArrayList();
+    
     private InputStream imagen;
     
     public Camara(int id, String marca, String modelo, double precio) {
         super(id, marca, modelo, precio);
     }
 
-    public ArrayList<Accesorio> getAccesorios() {
-        return accesorios;
-    }
-
-    public void setAccesorios(ArrayList<Accesorio> accesorios) {
-        this.accesorios = accesorios;
-    } 
     
     public InputStream getImagen() {
         return imagen;
@@ -46,31 +39,10 @@ public class Camara extends Producto{
         this.imagen = imagen;
     }
     
-    
-    
-    public void añadirAccesorio(Accesorio a){
-        
-        accesorios.add(a);
-        
-    }
-    
-    public void eliminarAccesorio(int id){
-        
-        Iterator it = accesorios.iterator();
-        
-        while(it.hasNext()){
-            Accesorio actual  = (Accesorio) it.next();
-            if(actual.getId() == id){
-                    it.remove();
-            }
-        }
-        
-    }
 
     @Override
     public String toString() {
-        return super.toString() +"\n" +
-                "ACCESORIOS: "+accesorios;
+        return super.toString();
     }
     
     
