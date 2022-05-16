@@ -51,13 +51,11 @@ jLabel1.setOpaque(true);
         botonInsertar = new javax.swing.JButton();
         botonBuscar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jLabel1.setBackground(new java.awt.Color(102, 102, 255));
         jLabel1.setFont(new java.awt.Font("Fira Sans Heavy", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/camara.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/camara.png"))); // NOI18N
         jLabel1.setText("CÁMARAS");
         jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jLabel1.setMaximumSize(new java.awt.Dimension(100, 100));
@@ -65,7 +63,7 @@ jLabel1.setOpaque(true);
         jLabel1.setName(""); // NOI18N
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        botonVer.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/listado.png")); // NOI18N
+        botonVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/listado.png"))); // NOI18N
         botonVer.setText("Ver productos");
         botonVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,7 +71,7 @@ jLabel1.setOpaque(true);
             }
         });
 
-        botonInsertar.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/insertar.png")); // NOI18N
+        botonInsertar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/insertar.png"))); // NOI18N
         botonInsertar.setText("Insertar producto");
         botonInsertar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,7 +79,7 @@ jLabel1.setOpaque(true);
             }
         });
 
-        botonBuscar.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/buscar.png")); // NOI18N
+        botonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscar.png"))); // NOI18N
         botonBuscar.setText("Buscar producto");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
