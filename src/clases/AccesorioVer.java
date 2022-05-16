@@ -32,7 +32,7 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author usuario
  */
-public class CamaraVer extends javax.swing.JFrame {
+public class AccesorioVer extends javax.swing.JFrame {
 
     private int id = 0;
     JButton button = new JButton();
@@ -40,7 +40,7 @@ public class CamaraVer extends javax.swing.JFrame {
     /**
      * Creates new form CamaraVentana
      */
-    public CamaraVer() {
+    public AccesorioVer() {
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File("fondo.jpg"));
@@ -60,17 +60,18 @@ public class CamaraVer extends javax.swing.JFrame {
             String marca = jTable1.getModel().getValueAt(row, 1).toString();
             String modelo = jTable1.getModel().getValueAt(row, 2).toString();
             String precio = jTable1.getModel().getValueAt(row, 3).toString();
-            DatosCamara datos = new DatosCamara(id,marca,modelo,precio);
+            String tipo = jTable1.getModel().getValueAt(row, 4).toString();
+            DatosAccesorio datos = new DatosAccesorio(id,marca,modelo,precio,tipo);
             datos.setVisible(true);
         }
         };
     jTable1.addMouseListener(evento);
-    CamaraBDD camaras = new CamaraBDD();
-        ArrayList<Camara> lista = camaras.readAll();
+    AccesorioBDD accesorios = new AccesorioBDD();
+        ArrayList<Accesorio> lista = accesorios.readAll();
         
         for (int i = 0; i < lista.size(); i++) {
-            final Camara actual = lista.get(i);
-            Object[] row = { lista.get(i).getId(), lista.get(i).getMarca(), lista.get(i).getModelo(), lista.get(i).getPrecio() };
+            
+            Object[] row = { lista.get(i).getId(), lista.get(i).getMarca(), lista.get(i).getModelo(), lista.get(i).getPrecio(),lista.get(i).getTipo() };
             tbl = (DefaultTableModel)jTable1.getModel();
             
             //jTable1.getColumn("IMAGEN").setCellRenderer(new ButtonRenderer());
@@ -102,12 +103,12 @@ public class CamaraVer extends javax.swing.JFrame {
         
         
         tbl.setRowCount(0);
-        CamaraBDD camaras = new CamaraBDD();
-        ArrayList<Camara> lista = camaras.readAll();
+        AccesorioBDD accesorios = new AccesorioBDD();
+        ArrayList<Accesorio> lista = accesorios.readAll();
         
         for (int i = 0; i < lista.size(); i++) {
-            final Camara actual = lista.get(i);
-            Object[] row = { lista.get(i).getId(), lista.get(i).getMarca(), lista.get(i).getModelo(), lista.get(i).getPrecio() };
+            
+            Object[] row = { lista.get(i).getId(), lista.get(i).getMarca(), lista.get(i).getModelo(), lista.get(i).getPrecio(),lista.get(i).getTipo() };
             tbl = (DefaultTableModel)jTable1.getModel();
             
             //jTable1.getColumn("IMAGEN").setCellRenderer(new ButtonRenderer());
@@ -196,7 +197,7 @@ public class CamaraVer extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Fira Sans Heavy", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/camara.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/accesorio.png")); // NOI18N
         jLabel1.setText("LISTADO");
         jLabel1.setMaximumSize(new java.awt.Dimension(100, 100));
         jLabel1.setMinimumSize(new java.awt.Dimension(100, 100));
@@ -212,11 +213,11 @@ public class CamaraVer extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "MARCA", "MODELO", "PRECIO"
+                "ID", "MARCA", "MODELO", "PRECIO", "TIPO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -287,8 +288,8 @@ public class CamaraVer extends javax.swing.JFrame {
                 String id = jTable1.getModel().getValueAt(row, 0).toString();
                 
                 
-                CamaraBDD camaras = new CamaraBDD();
-                camaras.delete(Integer.parseInt(id));
+                AccesorioBDD accesorios = new AccesorioBDD();
+                accesorios.delete(Integer.parseInt(id));
                 tbl.removeRow(row);
                 
         
@@ -315,14 +316,18 @@ public class CamaraVer extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CamaraVer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccesorioVer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CamaraVer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccesorioVer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CamaraVer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccesorioVer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CamaraVer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccesorioVer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -331,7 +336,7 @@ public class CamaraVer extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CamaraVer().setVisible(true);
+                new AccesorioVer().setVisible(true);
             }
         });
     }

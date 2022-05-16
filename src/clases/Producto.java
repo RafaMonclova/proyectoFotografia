@@ -4,6 +4,8 @@
  */
 package clases;
 
+import java.io.InputStream;
+
 /**
  *
  * @author usuario
@@ -14,6 +16,7 @@ abstract public class Producto {
     private String marca;
     private String modelo;
     private double precio;
+    private InputStream imagen;
 
     public Producto(int id, String marca, String modelo, double precio) {
         this.id = id;
@@ -52,6 +55,14 @@ abstract public class Producto {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+    
+    public InputStream getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(InputStream imagen) {
+        this.imagen = imagen;
     }
 
     @Override

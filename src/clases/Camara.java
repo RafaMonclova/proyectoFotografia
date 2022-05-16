@@ -22,23 +22,11 @@ import javax.imageio.ImageIO;
  */
 public class Camara extends Producto{
     
-    
-    
-    private InputStream imagen;
-    
+ 
     public Camara(int id, String marca, String modelo, double precio) {
         super(id, marca, modelo, precio);
     }
 
-    
-    public InputStream getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(InputStream imagen) {
-        this.imagen = imagen;
-    }
-    
 
     @Override
     public String toString() {

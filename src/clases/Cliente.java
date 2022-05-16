@@ -5,6 +5,8 @@
  */
 package clases;
 
+import java.io.InputStream;
+
 /**
  *
  * @author RAFAEL MONCLOVA SUANO
@@ -17,13 +19,15 @@ public class Cliente {
     private String direccion;
     private int telefono;
     private boolean habitual;
+    private InputStream imagen;
 
-    public Cliente(String dni, String nombre, String apellidos, String direccion, int telefono) {
+    public Cliente(String dni, String nombre, String apellidos, String direccion, int telefono,boolean habitual) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.direccion = direccion;
         this.telefono = telefono;
+        this.habitual = habitual;
     }
 
     public String getDni() {
@@ -82,6 +86,14 @@ public class Cliente {
                 "DIRECCIÓN" + direccion + "\n"+ 
                 "TELÉFONO" + telefono +"\n"+ 
                 "HABITUAL" + habitual;
+    }
+
+    public InputStream getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(InputStream imagen) {
+        this.imagen = imagen;
     }
     
     

@@ -29,14 +29,14 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author usuario
  */
-public class CamaraInsertar extends javax.swing.JFrame {
+public class AccesorioInsertar extends javax.swing.JFrame {
 
     private int id = 0;
     JButton button = new JButton();
     /**
      * Creates new form CamaraVentana
      */
-    public CamaraInsertar() {
+    public AccesorioInsertar() {
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File("fondo.jpg"));
@@ -76,6 +76,8 @@ public class CamaraInsertar extends javax.swing.JFrame {
         campoModelo = new javax.swing.JTextField();
         campoPrecio = new javax.swing.JTextField();
         panel = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        campoTipo = new javax.swing.JTextField();
 
         setResizable(false);
 
@@ -83,7 +85,7 @@ public class CamaraInsertar extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Fira Sans Heavy", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/camara.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/accesorio.png")); // NOI18N
         jLabel1.setText("INSERCIÓN");
         jLabel1.setMaximumSize(new java.awt.Dimension(100, 100));
         jLabel1.setMinimumSize(new java.awt.Dimension(100, 100));
@@ -112,11 +114,11 @@ public class CamaraInsertar extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "MARCA", "MODELO", "PRECIO"
+                "ID", "MARCA", "MODELO", "PRECIO", "TIPO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -166,10 +168,18 @@ public class CamaraInsertar extends javax.swing.JFrame {
             .addGap(0, 240, Short.MAX_VALUE)
         );
 
+        jLabel6.setFont(new java.awt.Font("Fira Sans", 3, 13)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("TIPO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(347, 347, 347)
+                .addComponent(botonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,11 +205,12 @@ public class CamaraInsertar extends javax.swing.JFrame {
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(72, 72, 72))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(347, 347, 347)
-                .addComponent(botonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(72, 72, 72))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(campoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,15 +218,15 @@ public class CamaraInsertar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE))
+                        .addGap(187, 187, 187))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(campoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,11 +239,15 @@ public class CamaraInsertar extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(campoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(campoPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(95, 95, 95)))
+                        .addGap(18, 18, 18)))
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -245,32 +260,33 @@ public class CamaraInsertar extends javax.swing.JFrame {
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
         
 
-        CamaraBDD camaras = new CamaraBDD();
-        Camara c = new Camara(Integer.parseInt(campoID.getText()),campoMarca.getText(),campoModelo.getText(),Double.parseDouble(campoPrecio.getText()));
+        AccesorioBDD accesorios = new AccesorioBDD();
+        Accesorio a = new Accesorio(Integer.parseInt(campoID.getText()),campoMarca.getText(),campoModelo.getText(),Double.parseDouble(campoPrecio.getText()),campoTipo.getText());
         try {
-            c.setImagen(new FileInputStream(new File(c.getModelo()+".png")));
+            a.setImagen(new FileInputStream(new File(a.getModelo()+".png")));
         } catch (FileNotFoundException ex) {
             try {
-                c.setImagen(new FileInputStream(new File("default.png")));
+                a.setImagen(new FileInputStream(new File("default.png")));
             } catch (FileNotFoundException ex1) {
-                Logger.getLogger(CamaraInsertar.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(AccesorioInsertar.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
 
-        camaras.insert(c);
-        Object[] row = { c.getId(), c.getMarca(), c.getModelo(), c.getPrecio()};
+        accesorios.insert(a);
+        Object[] row = { a.getId(), a.getMarca(), a.getModelo(), a.getPrecio(), a.getTipo()};
         DefaultTableModel tbl = (DefaultTableModel)jTable1.getModel();
         
         
         
         tbl.addRow(row);
         
-        panel.add(new CargarImagen("CAMARA",c.getModelo()));
+        panel.add(new CargarImagen("ACCESORIO",a.getModelo()));
         
         campoID.setText("");
         campoMarca.setText("");
         campoModelo.setText("");
         campoPrecio.setText("");
+        campoTipo.setText("");
         
         
         
@@ -306,14 +322,18 @@ public class CamaraInsertar extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CamaraInsertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccesorioInsertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CamaraInsertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccesorioInsertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CamaraInsertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccesorioInsertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CamaraInsertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccesorioInsertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -322,7 +342,7 @@ public class CamaraInsertar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CamaraInsertar().setVisible(true);
+                new AccesorioInsertar().setVisible(true);
             }
         });
     }
@@ -333,11 +353,13 @@ public class CamaraInsertar extends javax.swing.JFrame {
     private javax.swing.JTextField campoMarca;
     private javax.swing.JTextField campoModelo;
     private javax.swing.JTextField campoPrecio;
+    private javax.swing.JTextField campoTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel panel;

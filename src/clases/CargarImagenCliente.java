@@ -18,9 +18,9 @@ import javax.swing.JLabel;
  *
  * @author usuario
  */
-public class CargarImagen extends JInternalFrame{
+public class CargarImagenCliente extends JInternalFrame{
     
-    public CargarImagen(String clase, String modelo) 
+    public CargarImagenCliente(String dni) 
   {
     super("Imagen");
     setSize(240, 240);
@@ -31,7 +31,7 @@ public class CargarImagen extends JInternalFrame{
       Class.forName("com.mysql.cj.jdbc.Driver");
 						
       Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/fotografia", "usuario", "root");
-      PreparedStatement statement = connection.prepareStatement("SELECT IMAGEN FROM "+clase+" WHERE MODELO ='"+modelo+"'");
+      PreparedStatement statement = connection.prepareStatement("SELECT IMAGEN FROM CLIENTE WHERE DNI ='"+dni+"'");
       
       ResultSet res = statement.executeQuery();
       //get image as byte
@@ -48,7 +48,7 @@ public class CargarImagen extends JInternalFrame{
     } catch (SQLException e) {
       e.printStackTrace();
     }   catch (ClassNotFoundException ex) {
-            Logger.getLogger(CargarImagen.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CargarImagenCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     setVisible(true);
   }

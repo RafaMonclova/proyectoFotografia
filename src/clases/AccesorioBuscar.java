@@ -27,7 +27,7 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author usuario
  */
-public class CamaraBuscar extends javax.swing.JFrame {
+public class AccesorioBuscar extends javax.swing.JFrame {
 
     private int id = 0;
     JButton button = new JButton();
@@ -35,7 +35,7 @@ public class CamaraBuscar extends javax.swing.JFrame {
     /**
      * Creates new form CamaraVentana
      */
-    public CamaraBuscar() {
+    public AccesorioBuscar() {
 
         BufferedImage img = null;
         try {
@@ -55,7 +55,8 @@ public class CamaraBuscar extends javax.swing.JFrame {
             String marca = jTable1.getModel().getValueAt(row, 1).toString();
             String modelo = jTable1.getModel().getValueAt(row, 2).toString();
             String precio = jTable1.getModel().getValueAt(row, 3).toString();
-            DatosCamara datos = new DatosCamara(id,marca,modelo,precio);
+            String tipo = jTable1.getModel().getValueAt(row, 4).toString();
+            DatosAccesorio datos = new DatosAccesorio(id,marca,modelo,precio, tipo);
             datos.setVisible(true);
         }
         };
@@ -83,7 +84,7 @@ public class CamaraBuscar extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Fira Sans Heavy", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/camara.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/accesorio.png")); // NOI18N
         jLabel1.setText("BÚSQUEDA");
         jLabel1.setMaximumSize(new java.awt.Dimension(100, 100));
         jLabel1.setMinimumSize(new java.awt.Dimension(100, 100));
@@ -112,11 +113,11 @@ public class CamaraBuscar extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "MARCA", "MODELO", "PRECIO"
+                "ID", "MARCA", "MODELO", "PRECIO", "TIPO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -187,9 +188,9 @@ public class CamaraBuscar extends javax.swing.JFrame {
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         
         id = Integer.parseInt(campoBuscar.getText());
-        CamaraBDD camaras = new CamaraBDD();
-        Camara c = camaras.read(id);
-        Object[] row = { c.getId(), c.getMarca(), c.getModelo(), c.getPrecio() };
+        AccesorioBDD accesorios = new AccesorioBDD();
+        Accesorio a = accesorios.read(id);
+        Object[] row = { a.getId(), a.getMarca(), a.getModelo(), a.getPrecio(),a.getTipo() };
         tbl = (DefaultTableModel)jTable1.getModel();
         
         //jTable1.getColumn("IMAGEN").setCellRenderer(new ButtonRenderer());
@@ -253,21 +254,23 @@ public class CamaraBuscar extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CamaraBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccesorioBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CamaraBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccesorioBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CamaraBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccesorioBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CamaraBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccesorioBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CamaraBuscar().setVisible(true);
+                new AccesorioBuscar().setVisible(true);
             }
         });
     }

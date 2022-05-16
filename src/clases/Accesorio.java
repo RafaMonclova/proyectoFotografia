@@ -14,8 +14,9 @@ public class Accesorio extends Producto{
     
     private String tipo;
     
-    public Accesorio(int id, String marca, String modelo, double precio) {
+    public Accesorio(int id, String marca, String modelo, double precio,String tipo) {
         super(id, marca, modelo, precio);
+        this.tipo = tipo;
     }
 
     public String getTipo() {

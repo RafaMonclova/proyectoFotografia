@@ -27,7 +27,7 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author usuario
  */
-public class CamaraBuscar extends javax.swing.JFrame {
+public class ClienteBuscar extends javax.swing.JFrame {
 
     private int id = 0;
     JButton button = new JButton();
@@ -35,7 +35,7 @@ public class CamaraBuscar extends javax.swing.JFrame {
     /**
      * Creates new form CamaraVentana
      */
-    public CamaraBuscar() {
+    public ClienteBuscar() {
 
         BufferedImage img = null;
         try {
@@ -83,7 +83,7 @@ public class CamaraBuscar extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Fira Sans Heavy", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/camara.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/cliente.png")); // NOI18N
         jLabel1.setText("BÚSQUEDA");
         jLabel1.setMaximumSize(new java.awt.Dimension(100, 100));
         jLabel1.setMinimumSize(new java.awt.Dimension(100, 100));
@@ -98,7 +98,7 @@ public class CamaraBuscar extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Fira Sans", 3, 13)); // NOI18N
-        jLabel2.setText("Introduce el código de producto");
+        jLabel2.setText("Introduce el DNI del cliente");
 
         campoBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,11 +112,11 @@ public class CamaraBuscar extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "MARCA", "MODELO", "PRECIO"
+                "DNI", "NOMBRE", "APELLIDOS", "DIRECCION", "TELEFONO", "HABITUAL"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -253,21 +253,23 @@ public class CamaraBuscar extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CamaraBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CamaraBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CamaraBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CamaraBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteBuscar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CamaraBuscar().setVisible(true);
+                new ClienteBuscar().setVisible(true);
             }
         });
     }
