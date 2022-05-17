@@ -36,17 +36,17 @@ public class CamaraBuscar extends javax.swing.JFrame {
      * Creates new form CamaraVentana
      */
     public CamaraBuscar() {
-/*
+
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("fondo.jpg"));
+            img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
         setContentPane(new JLabel(imageIcon));
-        */
+        
         initComponents();
         jLabel1.setOpaque(true);
         MouseAdapter evento = new MouseAdapter() {

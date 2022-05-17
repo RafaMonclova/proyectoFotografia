@@ -5,6 +5,13 @@
  */
 package clases;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  *
  * @author alumno
@@ -15,6 +22,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
      * Creates new form MenuPrincipal
      */
     public MenuPrincipal() {
+        
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Image dimg = img.getScaledInstance(1002, 582, Image.SCALE_SMOOTH);
+        ImageIcon imageIcon = new ImageIcon(dimg);
+        setContentPane(new JLabel(imageIcon));
+        
+        
+        
         initComponents();
     }
 
@@ -27,74 +47,107 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        menuCamara = new javax.swing.JButton();
-        menuAccesorio = new javax.swing.JButton();
-        menuCliente = new javax.swing.JButton();
+        botonCliente = new javax.swing.JButton();
+        botonProducto = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        panel = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        menuCamara.setText("Camaras");
-        menuCamara.addActionListener(new java.awt.event.ActionListener() {
+        botonCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/cliente.png"))); // NOI18N
+        botonCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuCamaraActionPerformed(evt);
+                botonClienteActionPerformed(evt);
             }
         });
 
-        menuAccesorio.setText("Accesorios");
-        menuAccesorio.addActionListener(new java.awt.event.ActionListener() {
+        botonProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/producto.png"))); // NOI18N
+        botonProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAccesorioActionPerformed(evt);
+                botonProductoActionPerformed(evt);
             }
         });
 
-        menuCliente.setText("Clientes");
-        menuCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuClienteActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Fira Sans", 3, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("PRODUCTOS");
+
+        jLabel2.setFont(new java.awt.Font("Fira Sans", 3, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("CLIENTES");
+
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 748, Short.MAX_VALUE)
+        );
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 302, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(menuCamara)
-                .addGap(174, 174, 174)
-                .addComponent(menuAccesorio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
-                .addComponent(menuCliente)
-                .addGap(54, 54, 54))
+                .addGap(124, 124, 124)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonProducto)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(jLabel1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(61, 61, 61))
+                            .addComponent(botonCliente, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(339, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(menuCamara)
-                    .addComponent(menuAccesorio)
-                    .addComponent(menuCliente))
-                .addGap(126, 126, 126))
+                .addContainerGap()
+                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonCliente))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonProducto)))
+                .addContainerGap())
         );
+
+        botonCliente.setContentAreaFilled(false);
+        botonProducto.setContentAreaFilled(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menuCamaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCamaraActionPerformed
-        CamaraMenu v = new CamaraMenu();
-        v.setVisible(true);
-    }//GEN-LAST:event_menuCamaraActionPerformed
-
-    private void menuAccesorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAccesorioActionPerformed
-        AccesorioMenu v = new AccesorioMenu();
-        v.setVisible(true);
-    }//GEN-LAST:event_menuAccesorioActionPerformed
-
-    private void menuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClienteActionPerformed
+    private void botonClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonClienteActionPerformed
         ClienteMenu v = new ClienteMenu();
         v.setVisible(true);
-    }//GEN-LAST:event_menuClienteActionPerformed
+    }//GEN-LAST:event_botonClienteActionPerformed
+
+    private void botonProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonProductoActionPerformed
+        
+        MenuProductos p = new MenuProductos();
+        p.setVisible(true);
+        panel.add(p);
+        
+        
+        
+    }//GEN-LAST:event_botonProductoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,8 +185,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton menuAccesorio;
-    private javax.swing.JButton menuCamara;
-    private javax.swing.JButton menuCliente;
+    private javax.swing.JButton botonCliente;
+    private javax.swing.JButton botonProducto;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JDesktopPane panel;
     // End of variables declaration//GEN-END:variables
 }

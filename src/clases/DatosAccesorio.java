@@ -28,17 +28,17 @@ public class DatosAccesorio extends javax.swing.JFrame {
      * Creates new form DatosProducto
      */
     public DatosAccesorio(String id, String marca, String modelo, String precio,String tipo) {
-        /*
+        
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("fondo.jpg"));
+            img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);     
         setContentPane(new JLabel(imageIcon));
-        */
+        
         initComponents();
         
         

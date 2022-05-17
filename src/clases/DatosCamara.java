@@ -28,10 +28,10 @@ public class DatosCamara extends javax.swing.JFrame {
      * Creates new form DatosProducto
      */
     public DatosCamara(String id, String marca, String modelo, String precio) {
-        /*
+        
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("fondo.jpg"));
+            img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,7 +39,7 @@ public class DatosCamara extends javax.swing.JFrame {
         ImageIcon imageIcon = new ImageIcon(dimg);
         
         setContentPane(new JLabel(imageIcon));
-        */
+        
         initComponents();
         
         

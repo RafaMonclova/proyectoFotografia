@@ -28,17 +28,17 @@ public class DatosCliente extends javax.swing.JFrame {
      * Creates new form DatosProducto
      */
     public DatosCliente(String dni, String nombre, String apellidos, String direccion,String telefono,boolean habitual2) {
-        /*
+        
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("fondo.jpg"));
+            img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
         setContentPane(new JLabel(imageIcon));
-        */
+        
         initComponents();
         
         

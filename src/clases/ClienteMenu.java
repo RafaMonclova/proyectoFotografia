@@ -22,20 +22,20 @@ public class ClienteMenu extends javax.swing.JFrame {
      * Creates new form CamaraVentana
      */
     public ClienteMenu() {
-        /*
+        
         BufferedImage img = null;
-try {
-    img = ImageIO.read(new File("fondo.jpg"));
-} catch (IOException e) {
-    e.printStackTrace();
-}
-Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
-ImageIcon imageIcon = new ImageIcon(dimg);
-setContentPane(new JLabel(imageIcon));
-*/
-initComponents();
-jLabel1.setOpaque(true);
-    }
+        try {
+            img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
+        ImageIcon imageIcon = new ImageIcon(dimg);
+        setContentPane(new JLabel(imageIcon));
+
+        initComponents();
+        jLabel1.setOpaque(true);
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,8 +50,6 @@ jLabel1.setOpaque(true);
         botonVer = new javax.swing.JButton();
         botonInsertar = new javax.swing.JButton();
         botonBuscar = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setBackground(new java.awt.Color(102, 102, 255));
         jLabel1.setFont(new java.awt.Font("Fira Sans Heavy", 0, 36)); // NOI18N

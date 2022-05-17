@@ -25,25 +25,17 @@ public class CamaraMenu extends javax.swing.JFrame {
      * Creates new form CamaraVentana
      */
     public CamaraMenu() {
-        /*
         BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File(getClass().getResource("/fondo.jpg").toURI()));
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(CamaraMenu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(CamaraMenu.class.getName()).log(Level.SEVERE, null, ex);
-        }
-//try {
+try {
     
-    //img = ImageIO.read(new File("/resources/fondo.jpg"));
-//} catch (IOException e) {
+    img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
+} catch (IOException e) {
   //  e.printStackTrace();
-//}
+}
 Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
 ImageIcon imageIcon = new ImageIcon(dimg);
 setContentPane(new JLabel(imageIcon));
-*/
+
 initComponents();
 jLabel1.setOpaque(true);
     }
