@@ -148,6 +148,7 @@ public class DatosCliente extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("TELEFONO");
 
+        habitual.setForeground(new java.awt.Color(255, 255, 255));
         habitual.setText("HABITUAL");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
