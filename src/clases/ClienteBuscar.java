@@ -29,14 +29,14 @@ import javax.swing.table.TableCellRenderer;
  */
 public class ClienteBuscar extends javax.swing.JFrame {
 
-    private int id = 0;
+    private String dni = "";
     JButton button = new JButton();
     DefaultTableModel tbl;
     /**
      * Creates new form CamaraVentana
      */
     public ClienteBuscar() {
-
+/*
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File("fondo.jpg"));
@@ -46,16 +46,19 @@ public class ClienteBuscar extends javax.swing.JFrame {
         Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
         setContentPane(new JLabel(imageIcon));
+        */
         initComponents();
         jLabel1.setOpaque(true);
         MouseAdapter evento = new MouseAdapter() {
         public void mouseClicked(MouseEvent e) {
             int row = jTable1.getSelectedRow();
-            String id = jTable1.getModel().getValueAt(row, 0).toString();
-            String marca = jTable1.getModel().getValueAt(row, 1).toString();
-            String modelo = jTable1.getModel().getValueAt(row, 2).toString();
-            String precio = jTable1.getModel().getValueAt(row, 3).toString();
-            DatosCamara datos = new DatosCamara(id,marca,modelo,precio);
+            String dni = jTable1.getModel().getValueAt(row, 0).toString();
+            String nombre = jTable1.getModel().getValueAt(row, 1).toString();
+            String apellidos = jTable1.getModel().getValueAt(row, 2).toString();
+            String direccion = jTable1.getModel().getValueAt(row, 3).toString();
+            String telefono = jTable1.getModel().getValueAt(row, 4).toString();
+            Object habitual = jTable1.getModel().getValueAt(row, 5);
+            DatosCliente datos = new DatosCliente(dni,nombre,apellidos,direccion,telefono,(boolean)habitual);
             datos.setVisible(true);
         }
         };
@@ -83,7 +86,7 @@ public class ClienteBuscar extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Fira Sans Heavy", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/cliente.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente.png"))); // NOI18N
         jLabel1.setText("BÚSQUEDA");
         jLabel1.setMaximumSize(new java.awt.Dimension(100, 100));
         jLabel1.setMinimumSize(new java.awt.Dimension(100, 100));
@@ -186,10 +189,10 @@ public class ClienteBuscar extends javax.swing.JFrame {
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         
-        id = Integer.parseInt(campoBuscar.getText());
-        CamaraBDD camaras = new CamaraBDD();
-        Camara c = camaras.read(id);
-        Object[] row = { c.getId(), c.getMarca(), c.getModelo(), c.getPrecio() };
+        dni = campoBuscar.getText();
+        ClienteBDD clientes = new ClienteBDD();
+        Cliente c = clientes.read(dni);
+        Object[] row = { c.getDni(), c.getNombre(), c.getApellidos(), c.getDireccion(), c.getTelefono(), c.isHabitual() };
         tbl = (DefaultTableModel)jTable1.getModel();
         
         //jTable1.getColumn("IMAGEN").setCellRenderer(new ButtonRenderer());

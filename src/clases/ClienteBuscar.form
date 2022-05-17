@@ -88,7 +88,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/home/usuario/NetBeansProjects/proyectoFotografia/cliente.png"/>
+          <Image iconType="3" name="/cliente.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="B&#xda;SQUEDA"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">

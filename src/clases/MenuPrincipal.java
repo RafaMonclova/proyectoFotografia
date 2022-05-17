@@ -27,64 +27,74 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        menuCamara = new javax.swing.JButton();
+        menuAccesorio = new javax.swing.JButton();
+        menuCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Camaras");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        menuCamara.setText("Camaras");
+        menuCamara.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                menuCamaraActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Accesorios");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        menuAccesorio.setText("Accesorios");
+        menuAccesorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                menuAccesorioActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Clientes");
+        menuCliente.setText("Clientes");
+        menuCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(jButton1)
-                .addGap(47, 47, 47)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(33, 33, 33))
+                .addGap(83, 83, 83)
+                .addComponent(menuCamara)
+                .addGap(174, 174, 174)
+                .addComponent(menuAccesorio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                .addComponent(menuCliente)
+                .addGap(54, 54, 54))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(143, Short.MAX_VALUE)
+                .addContainerGap(339, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(menuCamara)
+                    .addComponent(menuAccesorio)
+                    .addComponent(menuCliente))
                 .addGap(126, 126, 126))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void menuCamaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCamaraActionPerformed
         CamaraMenu v = new CamaraMenu();
         v.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_menuCamaraActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void menuAccesorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAccesorioActionPerformed
         AccesorioMenu v = new AccesorioMenu();
         v.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_menuAccesorioActionPerformed
+
+    private void menuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClienteActionPerformed
+        ClienteMenu v = new ClienteMenu();
+        v.setVisible(true);
+    }//GEN-LAST:event_menuClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -122,8 +132,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton menuAccesorio;
+    private javax.swing.JButton menuCamara;
+    private javax.swing.JButton menuCliente;
     // End of variables declaration//GEN-END:variables
 }

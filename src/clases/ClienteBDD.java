@@ -27,7 +27,7 @@ public class ClienteBDD implements ClienteDAO{
 
     @Override
     public void update(Cliente c) {
-        String update = "UPDATE ACCESORIO SET DNI='"+c.getDni()+"',"+"NOMBRE='"+c.getNombre()+"',"+"APELLIDOS='"+c.getApellidos()+"',"+"DIRECCION='"+c.getDireccion()+"',TELEFONO="+c.getTelefono()+", HABITUAL="+c.isHabitual()+"WHERE DNI="+c.getDni();
+        String update = "UPDATE CLIENTE SET DNI='"+c.getDni()+"',"+"NOMBRE='"+c.getNombre()+"',"+"APELLIDOS='"+c.getApellidos()+"',"+"DIRECCION='"+c.getDireccion()+"',TELEFONO="+c.getTelefono()+", HABITUAL="+c.isHabitual()+" WHERE DNI='"+c.getDni()+"'";
            
 		 try{	
 		 	 
@@ -43,6 +43,7 @@ public class ClienteBDD implements ClienteDAO{
 			     System.out.println("Actualización realizada");
 			 }catch(SQLException sqle){
 				 System.out.println("SQL Exception");
+                                 sqle.printStackTrace();
 			 }
 			 
 			 statement.close();
@@ -70,9 +71,11 @@ public class ClienteBDD implements ClienteDAO{
                          PreparedStatement ps = null;
                          InputStream is = null;
 			ps = connection.prepareCall("INSERT INTO CLIENTE VALUES('"+c.getDni()+"','"+c.getNombre()+"','"+c.getApellidos()+"','"+c.getDireccion()+"',"+c.getTelefono()+","+c.isHabitual()+","+"?"+")");
-                        is = new FileInputStream(new File(c.getDni()+".png"));
+                        is = getClass().getResourceAsStream("/resources/"+c.getDni()+".png");
+                        if(is == null){
+                            is = getClass().getResourceAsStream("/resources/default.png");
+                        }
                         ps.setBinaryStream(1, is);
-			 //Statement statement=connection.createStatement();
 			 
 			 
 			 try{
@@ -92,42 +95,8 @@ public class ClienteBDD implements ClienteDAO{
 		 }catch (SQLException sqle){
 				System.out.println("SQL Exception 2");
                                 sqle.printStackTrace();
-		 } catch (FileNotFoundException ex) {
-                      try{	
-		 	 
-			 Class.forName("com.mysql.cj.jdbc.Driver");
-						
-			 Connection connection=DriverManager.getConnection(url, usuario, clave);
-                         PreparedStatement ps = null;
-                         InputStream is = null;
-			ps = connection.prepareCall("INSERT INTO CLIENTE VALUES('"+c.getDni()+"','"+c.getNombre()+"','"+c.getApellidos()+"','"+c.getDireccion()+"',"+c.getTelefono()+","+c.isHabitual()+","+"?"+")");
-                        
-                        is = new FileInputStream(new File("default.png"));
-                        ps.setBinaryStream(1, is);
-			 //Statement statement=connection.createStatement();
-			 
-			 
-			 try{
-                             ps.executeUpdate();
-			     //statement.executeUpdate(insert);
-			     System.out.println("Inserción realizada");
-			 }catch(SQLException sqle){
-				 System.out.println("SQL Exception 3");
-			 }
-			 
-			 ps.close();
-			 connection.close();
-			 	 
-						
-		 } catch (ClassNotFoundException ex1) {
-                Logger.getLogger(ClienteBDD.class.getName()).log(Level.SEVERE, null, ex1);
-            } catch (SQLException ex1) {
-                Logger.getLogger(ClienteBDD.class.getName()).log(Level.SEVERE, null, ex1);
-            } catch (FileNotFoundException ex1) {
-                Logger.getLogger(ClienteBDD.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+                                
         }
-        
         
     }
 

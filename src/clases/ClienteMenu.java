@@ -22,7 +22,7 @@ public class ClienteMenu extends javax.swing.JFrame {
      * Creates new form CamaraVentana
      */
     public ClienteMenu() {
-        
+        /*
         BufferedImage img = null;
 try {
     img = ImageIO.read(new File("fondo.jpg"));
@@ -32,7 +32,7 @@ try {
 Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
 ImageIcon imageIcon = new ImageIcon(dimg);
 setContentPane(new JLabel(imageIcon));
-
+*/
 initComponents();
 jLabel1.setOpaque(true);
     }
@@ -57,7 +57,7 @@ jLabel1.setOpaque(true);
         jLabel1.setFont(new java.awt.Font("Fira Sans Heavy", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/cliente.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cliente.png"))); // NOI18N
         jLabel1.setText("CLIENTES");
         jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jLabel1.setMaximumSize(new java.awt.Dimension(100, 100));
@@ -65,7 +65,7 @@ jLabel1.setOpaque(true);
         jLabel1.setName(""); // NOI18N
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        botonVer.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/listado.png")); // NOI18N
+        botonVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/listado.png"))); // NOI18N
         botonVer.setText("Ver clientes");
         botonVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,7 +73,7 @@ jLabel1.setOpaque(true);
             }
         });
 
-        botonInsertar.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/insertar.png")); // NOI18N
+        botonInsertar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/insertar.png"))); // NOI18N
         botonInsertar.setText("Insertar cliente");
         botonInsertar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,7 +81,7 @@ jLabel1.setOpaque(true);
             }
         });
 
-        botonBuscar.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/buscar.png")); // NOI18N
+        botonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscar.png"))); // NOI18N
         botonBuscar.setText("Buscar cliente");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,14 +125,14 @@ jLabel1.setOpaque(true);
 
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
         
-        CamaraInsertar v = new CamaraInsertar();
+        ClienteInsertar v = new ClienteInsertar();
         v.setVisible(true);
         
     }//GEN-LAST:event_botonInsertarActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         
-        CamaraBuscar v = new CamaraBuscar();
+        ClienteBuscar v = new ClienteBuscar();
         v.setVisible(true);
         
         
@@ -140,7 +140,7 @@ jLabel1.setOpaque(true);
 
     private void botonVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerActionPerformed
         
-        CamaraVer v = new CamaraVer();
+        ClienteVer v = new ClienteVer();
         v.setVisible(true);
         
         

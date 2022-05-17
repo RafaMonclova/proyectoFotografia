@@ -37,6 +37,7 @@ public class AccesorioInsertar extends javax.swing.JFrame {
      * Creates new form CamaraVentana
      */
     public AccesorioInsertar() {
+        /*
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File("fondo.jpg"));
@@ -46,6 +47,7 @@ public class AccesorioInsertar extends javax.swing.JFrame {
         Image dimg = img.getScaledInstance(891, 638, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
         setContentPane(new JLabel(imageIcon));
+        */
         initComponents();
         jLabel1.setOpaque(true);
         
@@ -260,14 +262,10 @@ public class AccesorioInsertar extends javax.swing.JFrame {
 
         AccesorioBDD accesorios = new AccesorioBDD();
         Accesorio a = new Accesorio(Integer.parseInt(campoID.getText()),campoMarca.getText(),campoModelo.getText(),Double.parseDouble(campoPrecio.getText()),campoTipo.getText());
-        try {
-            a.setImagen(new FileInputStream(new File(a.getModelo()+".png")));
-        } catch (FileNotFoundException ex) {
-            try {
-                a.setImagen(new FileInputStream(new File("default.png")));
-            } catch (FileNotFoundException ex1) {
-                Logger.getLogger(AccesorioInsertar.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+        try{
+            a.setImagen(getClass().getResourceAsStream("/resources/"+a.getModelo()+".png"));
+        }catch(NullPointerException e){
+            a.setImagen(getClass().getResourceAsStream("/resources/default.png"));
         }
 
         accesorios.insert(a);

@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -37,6 +38,7 @@ public class CamaraInsertar extends javax.swing.JFrame {
      * Creates new form CamaraVentana
      */
     public CamaraInsertar() {
+        /*
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File("fondo.jpg"));
@@ -46,6 +48,7 @@ public class CamaraInsertar extends javax.swing.JFrame {
         Image dimg = img.getScaledInstance(891, 638, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
         setContentPane(new JLabel(imageIcon));
+        */
         initComponents();
         jLabel1.setOpaque(true);
         
@@ -247,15 +250,12 @@ public class CamaraInsertar extends javax.swing.JFrame {
 
         CamaraBDD camaras = new CamaraBDD();
         Camara c = new Camara(Integer.parseInt(campoID.getText()),campoMarca.getText(),campoModelo.getText(),Double.parseDouble(campoPrecio.getText()));
-        try {
-            c.setImagen(new FileInputStream(new File(c.getModelo()+".png")));
-        } catch (FileNotFoundException ex) {
-            try {
-                c.setImagen(new FileInputStream(new File("default.png")));
-            } catch (FileNotFoundException ex1) {
-                Logger.getLogger(CamaraInsertar.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+        try{
+            c.setImagen(getClass().getResourceAsStream("/resources/"+c.getModelo()+".png"));
+        }catch(NullPointerException e){
+            c.setImagen(getClass().getResourceAsStream("/resources/default.png"));
         }
+        
 
         camaras.insert(c);
         Object[] row = { c.getId(), c.getMarca(), c.getModelo(), c.getPrecio()};

@@ -28,6 +28,7 @@ public class DatosCamara extends javax.swing.JFrame {
      * Creates new form DatosProducto
      */
     public DatosCamara(String id, String marca, String modelo, String precio) {
+        /*
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File("fondo.jpg"));
@@ -36,7 +37,9 @@ public class DatosCamara extends javax.swing.JFrame {
         }
         Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
+        
         setContentPane(new JLabel(imageIcon));
+        */
         initComponents();
         
         
@@ -109,7 +112,7 @@ public class DatosCamara extends javax.swing.JFrame {
         jLabel4.setText("PRECIO");
 
         jButton1.setFont(new java.awt.Font("Fira Sans", 0, 24)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/guardar.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/guardar.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -117,7 +120,7 @@ public class DatosCamara extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Fira Sans", 0, 24)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/eliminar.png")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eliminar.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -209,11 +212,7 @@ public class DatosCamara extends javax.swing.JFrame {
         
         CamaraBDD camaras = new CamaraBDD();
         Camara c = new Camara(Integer.parseInt(campoID.getText()),campoMarca.getText(),campoModelo.getText(),Double.parseDouble(campoPrecio.getText()));
-        try {
-            c.setImagen(new FileInputStream(new File(c.getModelo()+".png")));
-        } catch (FileNotFoundException ex) {
-            System.out.println("Error");
-        }
+        c.setImagen(getClass().getResourceAsStream("/resources/"+c.getModelo()+".png"));
 
         camaras.update(c);
         
