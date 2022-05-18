@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author alumno
+ * @author RAFAEL MONCLOVA SUANO
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
@@ -23,6 +23,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         
+        //Establece el fondo de la ventana
         BufferedImage img = null;
         try {
             img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
@@ -135,12 +136,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonClienteActionPerformed
+        //Crea la ventana del menú de Clientes
         ClienteMenu v = new ClienteMenu();
         v.setVisible(true);
     }//GEN-LAST:event_botonClienteActionPerformed
 
     private void botonProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonProductoActionPerformed
         
+        //Crea la ventana del menú de Productos y lo añade al panel superior
         MenuProductos p = new MenuProductos();
         p.setVisible(true);
         panel.add(p);

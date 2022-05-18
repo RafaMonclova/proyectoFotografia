@@ -14,27 +14,26 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author usuario
+ * @author RAFAEL MONCLOVA SUANO
  */
 public class AccesorioMenu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CamaraVentana
-     */
+    
     public AccesorioMenu() {
         
+        //Establece el fondo de la ventana
         BufferedImage img = null;
-try {
-    img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
-} catch (IOException e) {
-    e.printStackTrace();
-}
-Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
-ImageIcon imageIcon = new ImageIcon(dimg);
-setContentPane(new JLabel(imageIcon));
+        try {
+            img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
+        ImageIcon imageIcon = new ImageIcon(dimg);
+        setContentPane(new JLabel(imageIcon));
 
-initComponents();
-jLabel1.setOpaque(true);
+        initComponents();
+        jLabel1.setOpaque(true);
     }
 
     /**
@@ -123,6 +122,7 @@ jLabel1.setOpaque(true);
 
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
         
+        //Crea ventana Insertar
         AccesorioInsertar v = new AccesorioInsertar();
         v.setVisible(true);
         
@@ -130,6 +130,7 @@ jLabel1.setOpaque(true);
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         
+        //Crea ventana Buscar
         AccesorioBuscar v = new AccesorioBuscar();
         v.setVisible(true);
         
@@ -138,6 +139,7 @@ jLabel1.setOpaque(true);
 
     private void botonVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerActionPerformed
         
+        //Crea ventana Ver
         AccesorioVer v = new AccesorioVer();
         v.setVisible(true);
         

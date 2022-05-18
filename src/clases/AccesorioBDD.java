@@ -16,24 +16,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
  *
- * @author alumno
+ * @author RAFAEL MONCLOVA SUANO
  */
 public class AccesorioBDD implements AccesorioDAO{
     
-    String usuario = "usuario";
-    String clave = "root";
-    String url = "jdbc:mysql://localhost:3306/fotografia";
-   
-
+    
+    /**
+     * Actualiza el objeto en la base de datos
+     * @param a Recibe el objeto a actualizar
+     */
     @Override
     public void update(Accesorio a) {
+        
+        //Recibe los atributos de "a" y guarda la cadena
         String update = "UPDATE ACCESORIO SET ID="+a.getId()+","+"MARCA='"+a.getMarca()+"',"+"MODELO='"+a.getModelo()+"',"+"PRECIO="+a.getPrecio()+",TIPO='"+a.getTipo()+"'WHERE ID="+a.getId();
            
 		 try{	
 		 	 
+                        //Conexión a la BDD. La clase Login contiene los atributos con el servidor, usuario y clave para conectarse
 			 Class.forName("com.mysql.cj.jdbc.Driver");
 						
-			 Connection connection=DriverManager.getConnection(url, usuario, clave);
+			 Connection connection=DriverManager.getConnection(Login.servidor, Login.usuario, Login.clave);
 			
 			 Statement statement=connection.createStatement();
 			 
@@ -57,30 +60,34 @@ public class AccesorioBDD implements AccesorioDAO{
 		 }
     }
 
+    /**
+     * Inserta el objeto en la BDD
+     * @param a Recibe el objeto a insertar
+     * @param imagen Recibe una cadena con la ruta de la imagen que tendrá
+     */
     @Override
-    public void insert(Accesorio a) {
+    public void insert(Accesorio a,String imagen) {
         
         
         
         try{	
-		 	 
+		 	 //Conexión a la BDD. La clase Login contiene los atributos con el servidor, usuario y clave para conectarse
 			 Class.forName("com.mysql.cj.jdbc.Driver");
 						
-			 Connection connection=DriverManager.getConnection(url, usuario, clave);
+			 Connection connection=DriverManager.getConnection(Login.servidor, Login.usuario, Login.clave);
+                         
+                         //Se prepara el Statement con la cadena, y un InputStream creado con  la ruta de la imagen recibida
                          PreparedStatement ps = null;
                          InputStream is = null;
 			ps = connection.prepareCall("INSERT INTO ACCESORIO VALUES("+a.getId()+",'"+a.getMarca()+"','"+a.getModelo()+"',"+a.getPrecio()+",'"+a.getTipo()+"',"+"?"+")");
-                        is = getClass().getResourceAsStream("/resources/"+a.getModelo()+".png");
-                        if(is == null){
-                            is = getClass().getResourceAsStream("/resources/default.png");
-                        }
+                        //is = getClass().getResourceAsStream("/resources/"+a.getModelo()+".png");
+                        is = new FileInputStream(imagen);
                         ps.setBinaryStream(1, is);
-			 //Statement statement=connection.createStatement();
+			 
 			 
 			 
 			 try{
                              ps.executeUpdate();
-			     //statement.executeUpdate(insert);
 			     System.out.println("Inserción realizada");
 			 }catch(SQLException sqle){
 				 System.out.println("SQL Exception 1");
@@ -95,24 +102,49 @@ public class AccesorioBDD implements AccesorioDAO{
 		 }catch (SQLException sqle){
 				System.out.println("SQL Exception 2");
                                 sqle.printStackTrace();
-		 }
-        //Statement statement=connection.createStatement();
-        //statement.executeUpdate(insert);
+		 } catch (FileNotFoundException ex) {
+                    //Si la imagen no se encuentra o no se selecciona, por defecto se usa una por defecto "/resources/default.png". 
+                    //Se obtiene mediante getClass().getResourceAsStream(imagen) ya que es un recurso guardado con el proyecto
+                     try {
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        Connection connection=DriverManager.getConnection(Login.servidor, Login.usuario, Login.clave);
+                        PreparedStatement ps = null;
+                        InputStream is = null;
+                        ps = connection.prepareCall("INSERT INTO ACCESORIO VALUES("+a.getId()+",'"+a.getMarca()+"','"+a.getModelo()+"',"+a.getPrecio()+",'"+a.getTipo()+"',"+"?"+")");
+                        is = getClass().getResourceAsStream(imagen);
+                        ps.setBinaryStream(1, is);
+                        ps.executeUpdate();
+                        
+                        System.out.println("Inserción realizada");
+                     
+                     
+        }   catch (ClassNotFoundException ex1) {
+                Logger.getLogger(AccesorioBDD.class.getName()).log(Level.SEVERE, null, ex1);
+            } catch (SQLException ex1) {
+                Logger.getLogger(AccesorioBDD.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        
 
         
         
-    }
+        }
+    }   
 
+    /**
+     * Borra un registro de la BDD por id de producto
+     * @param id Recibe el id del registro a borrar
+     */
     @Override
     public void delete(int id) {
         
+        //Sentencia para eliminar por id
         String delete="DELETE FROM ACCESORIO WHERE ID="+id;
         
         try{	
-		 	 
+		 	//Conexión a la BDD. La clase Login contiene los atributos con el servidor, usuario y clave para conectarse
 			 Class.forName("com.mysql.cj.jdbc.Driver");
 						
-			 Connection connection=DriverManager.getConnection(url, usuario, clave);
+			 Connection connection=DriverManager.getConnection(Login.servidor, Login.usuario, Login.clave);
 			
 			 Statement statement=connection.createStatement();
 			 
@@ -137,21 +169,27 @@ public class AccesorioBDD implements AccesorioDAO{
         
     }
 
+    /**
+     * Obtiene el accesorio con el id recibido 
+     * @param id Recibe el id a buscar
+     * @return Devuelve un objeto Accesorio con el id dado
+     */
     @Override
     public Accesorio read(int id) {
         
         Accesorio a = null;
         
+        //Se guarda la consulta por id recibido
         String query="SELECT * FROM ACCESORIO WHERE ID="+id;
 				
 	 try{	
 	 	 
                  
-         
+            //Conexión a la BDD. La clase Login contiene los atributos con el servidor, usuario y clave para conectarse
             Class.forName("com.mysql.cj.jdbc.Driver");
 
 
-            Connection connection=DriverManager.getConnection(url, usuario, clave);
+            Connection connection=DriverManager.getConnection(Login.servidor, Login.usuario, Login.clave);
 
 	     
 		 Statement statement=connection.createStatement();
@@ -159,7 +197,7 @@ public class AccesorioBDD implements AccesorioDAO{
 		 
 		 
 		 while(result.next()){ 
-                         
+                         //Crea el objeto con los campos guardados en la tabla
                          a = new Accesorio(result.getInt(1),result.getString(2),result.getString(3),result.getDouble(4),result.getString(5));
 		 }
 		 
@@ -174,25 +212,31 @@ public class AccesorioBDD implements AccesorioDAO{
                         System.out.println(sqle.getMessage());
                       sqle.printStackTrace();
                         
-	 }					
+	 }
+        
         return a;
         
     }
     
+    /**
+     * Lista con todos los Accesorios de la BDD
+     * @return Devuelve una lista con todos los Accesorios registrados
+     */
     public ArrayList<Accesorio> readAll() {
         
         ArrayList<Accesorio> accesorios = new ArrayList();
         
+        //Consulta que devuelve todos los registros de ACCESORIO
         String query="SELECT * FROM ACCESORIO";
 				
 	 try{	
 	 	 
                  
-         
+            //Conexión a la BDD. La clase Login contiene los atributos con el servidor, usuario y clave para conectarse
             Class.forName("com.mysql.cj.jdbc.Driver");
 
 
-            Connection connection=DriverManager.getConnection(url, usuario, clave);
+            Connection connection=DriverManager.getConnection(Login.servidor, Login.usuario, Login.clave);
 
 	     
 		 Statement statement=connection.createStatement();
@@ -200,7 +244,7 @@ public class AccesorioBDD implements AccesorioDAO{
 		 
 		 
 		 while(result.next()){ 
-                         
+                         //Crea el objeto y lo añade a la lista. Se realiza por cada registro encontrado
                          Accesorio a = new Accesorio(result.getInt(1),result.getString(2),result.getString(3),result.getDouble(4),result.getString(5));
                          accesorios.add(a);
 		 }
@@ -216,7 +260,8 @@ public class AccesorioBDD implements AccesorioDAO{
                         System.out.println(sqle.getMessage());
                       sqle.printStackTrace();
                         
-	 }					
+	 }	
+        
         return accesorios;
         
     }

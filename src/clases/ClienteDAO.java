@@ -11,8 +11,9 @@ package clases;
  */
 public interface ClienteDAO {
     
+    //Métodos para acceder a la BDD
     public void update(Cliente c);
-    public void insert(Cliente c);
+    public void insert(Cliente c,String imagen);
     public void delete(String dni);
     public Cliente read(String dni);
     

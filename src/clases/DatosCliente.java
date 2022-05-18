@@ -19,29 +19,28 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author usuario
+ * @author RAFAEL MONCLOVA SUANO
  */
 public class DatosCliente extends javax.swing.JFrame {
 
     
-    /**
-     * Creates new form DatosProducto
-     */
+    
     public DatosCliente(String dni, String nombre, String apellidos, String direccion,String telefono,boolean habitual2) {
         
+        //El constructor recibe los datos del Accesorio para ser mostrados en la ventana
         BufferedImage img = null;
         try {
             img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
+        Image dimg = img.getScaledInstance(520, 540, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
         setContentPane(new JLabel(imageIcon));
         
         initComponents();
         
-        
+        //Se asignan los datos recibidos a su campo correspondiente
         campoDNI.setText(dni);
         campoNombre.setText(nombre);
         campoApellidos.setText(apellidos);
@@ -49,6 +48,7 @@ public class DatosCliente extends javax.swing.JFrame {
         campoTelefono.setText(telefono);
         habitual.setSelected(habitual2);
         
+        //Carga la imagen en el panel. Es necesario enviar a CargarImagen() el nombre de la tabla y el campo donde buscar(clave primaria o única)
         panel.add(new CargarImagenCliente(dni));
         
     }
@@ -116,7 +116,7 @@ public class DatosCliente extends javax.swing.JFrame {
         jLabel4.setText("DIRECCION");
 
         jButton1.setFont(new java.awt.Font("Fira Sans", 0, 24)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/guardar.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/guardar.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -124,7 +124,7 @@ public class DatosCliente extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Fira Sans", 0, 24)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon("/home/usuario/NetBeansProjects/proyectoFotografia/eliminar.png")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/eliminar.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -227,7 +227,7 @@ public class DatosCliente extends javax.swing.JFrame {
                         .addComponent(campoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 16, Short.MAX_VALUE))))
         );
 
         pack();
@@ -237,22 +237,30 @@ public class DatosCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoNombreActionPerformed
 
+    /**
+     * Actualiza los datos en la BDD
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        
+        //Crea el objeto con los datos de los campos, y los actualiza mediante update()
         ClienteBDD clientes = new ClienteBDD();
         Cliente c = new Cliente(campoDNI.getText(),campoNombre.getText(),campoApellidos.getText(),campoDireccion.getText(),Integer.parseInt(campoTelefono.getText()),habitual.isSelected());
-        c.setImagen(getClass().getResourceAsStream("/resources/"+c.getDni()+".png"));
+        //c.setImagen(getClass().getResourceAsStream("/resources/"+c.getDni()+".png"));
 
         clientes.update(c);
         
-        CargarImagenCliente prueba = new CargarImagenCliente(c.getDni());
-        prueba.setVisible(true);
+        //CargarImagenCliente prueba = new CargarImagenCliente(c.getDni());
+        //prueba.setVisible(true);
         
         mensaje.setText("Datos actualizados.");
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Borra el cliente que se está viendo en la ventana de la BDD
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
         
@@ -261,7 +269,7 @@ public class DatosCliente extends javax.swing.JFrame {
                 
         ClienteBDD clientes = new ClienteBDD();
         clientes.delete(dni);
-                
+        //Una vez borrado, se cierra la ventana         
         super.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

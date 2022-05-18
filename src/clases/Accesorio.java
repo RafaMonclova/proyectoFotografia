@@ -11,18 +11,27 @@ package clases;
  */
 public class Accesorio extends Producto{
 
-    
+    //Atributos de Accesorio
     private String tipo;
     
+    //Constructor
     public Accesorio(int id, String marca, String modelo, double precio,String tipo) {
         super(id, marca, modelo, precio);
         this.tipo = tipo;
     }
 
+    /**
+     * 
+     * @return Devuelve el tipo del accesorio
+     */
     public String getTipo() {
         return tipo;
     }
 
+    /**
+     * 
+     * @param tipo Recibe el tipo y lo asigna
+     */
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }

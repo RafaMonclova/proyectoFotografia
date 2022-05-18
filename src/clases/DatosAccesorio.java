@@ -19,35 +19,35 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author usuario
+ * @author RAFAEL MONCLOVA SUANO
  */
 public class DatosAccesorio extends javax.swing.JFrame {
 
     
-    /**
-     * Creates new form DatosProducto
-     */
+    //El constructor recibe los datos del Accesorio para ser mostrados en la ventana
     public DatosAccesorio(String id, String marca, String modelo, String precio,String tipo) {
         
+        //Establece el fondo de la ventana
         BufferedImage img = null;
         try {
             img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
+        Image dimg = img.getScaledInstance(531, 531, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);     
         setContentPane(new JLabel(imageIcon));
         
         initComponents();
         
-        
+        //Se asignan los datos recibidos a su campo correspondiente
         campoID.setText(id);
         campoMarca.setText(marca);
         campoModelo.setText(modelo);
         campoPrecio.setText(precio);
         campoTipo.setText(tipo);
         
+        //Carga la imagen en el panel. Es necesario enviar a CargarImagen() el nombre de la tabla y el campo donde buscar(clave primaria o única)
         panel.add(new CargarImagen("ACCESORIO",modelo));
         
     }
@@ -223,31 +223,38 @@ public class DatosAccesorio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoMarcaActionPerformed
 
+    /**
+     * Actualiza los datos en la BDD
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        
+        //Crea el objeto con los datos de los campos, y los actualiza mediante update()
         AccesorioBDD accesorios = new AccesorioBDD();
         Accesorio a = new Accesorio(Integer.parseInt(campoID.getText()),campoMarca.getText(),campoModelo.getText(),Double.parseDouble(campoPrecio.getText()),campoTipo.getText());
-        a.setImagen(getClass().getResourceAsStream("/resources/"+a.getModelo()+".png"));
+        //a.setImagen(getClass().getResourceAsStream("/resources/"+a.getModelo()+".png"));
 
         accesorios.update(a);
         
-        CargarImagen prueba = new CargarImagen("ACCESORIO",a.getModelo());
-        prueba.setVisible(true);
+        //CargarImagen prueba = new CargarImagen("ACCESORIO",a.getModelo());
+        //prueba.setVisible(true);
         
         mensaje.setText("Datos actualizados.");
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Borra el producto que se está viendo en la ventana de la BDD
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
         
-        String id = campoID.getText();
-                
-                
+        String id = campoID.getText();       
         AccesorioBDD accesorios = new AccesorioBDD();
         accesorios.delete(Integer.parseInt(id));
                 
+        //Una vez borrado, se cierra la ventana
         super.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

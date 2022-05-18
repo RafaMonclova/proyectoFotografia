@@ -11,8 +11,9 @@ package clases;
  */
 public interface CamaraDAO {
     
+    //Métodos para acceder a la BDD
     public void update(Camara c);
-    public void insert(Camara c);
+    public void insert(Camara c,String imagen);
     public void delete(int id);
     public Camara read(int id);
     

@@ -17,27 +17,27 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author usuario
+ * @author RAFAEL MONCLOVA SUANO
  */
 public class CamaraMenu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CamaraVentana
-     */
-    public CamaraMenu() {
-        BufferedImage img = null;
-try {
     
-    img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
-} catch (IOException e) {
+    public CamaraMenu() {
+        
+        //Establece el fondo de la ventana
+        BufferedImage img = null;
+        try {
+    
+            img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
+        } catch (IOException e) {
   //  e.printStackTrace();
-}
-Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
-ImageIcon imageIcon = new ImageIcon(dimg);
-setContentPane(new JLabel(imageIcon));
+        }
+        Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
+        ImageIcon imageIcon = new ImageIcon(dimg);
+        setContentPane(new JLabel(imageIcon));
 
-initComponents();
-jLabel1.setOpaque(true);
+        initComponents();
+        jLabel1.setOpaque(true);
     }
 
     /**
@@ -125,14 +125,14 @@ jLabel1.setOpaque(true);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
-        
+        //Crea ventana Insertar
         CamaraInsertar v = new CamaraInsertar();
         v.setVisible(true);
         
     }//GEN-LAST:event_botonInsertarActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-        
+        //Crea ventana Buscar
         CamaraBuscar v = new CamaraBuscar();
         v.setVisible(true);
         
@@ -140,7 +140,7 @@ jLabel1.setOpaque(true);
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void botonVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerActionPerformed
-        
+        //Crea ventana Ver
         CamaraVer v = new CamaraVer();
         v.setVisible(true);
         

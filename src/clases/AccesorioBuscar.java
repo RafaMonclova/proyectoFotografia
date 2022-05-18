@@ -25,12 +25,11 @@ import javax.swing.table.TableCellRenderer;
 
 /**
  *
- * @author usuario
+ * @author RAFAEL MONCLOVA SUANO
  */
 public class AccesorioBuscar extends javax.swing.JFrame {
 
     private int id = 0;
-    JButton button = new JButton();
     DefaultTableModel tbl;
     /**
      * Creates new form CamaraVentana
@@ -49,6 +48,8 @@ public class AccesorioBuscar extends javax.swing.JFrame {
         
         initComponents();
         jLabel1.setOpaque(true);
+        
+        //Crea un evento que al pulsar sobre una fila, se abra una ventana con la información de ese producto
         MouseAdapter evento = new MouseAdapter() {
         public void mouseClicked(MouseEvent e) {
             int row = jTable1.getSelectedRow();
@@ -188,56 +189,28 @@ public class AccesorioBuscar extends javax.swing.JFrame {
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         
+        //Guarda el id del campo Buscar y realiza la consulta por el método read()
         id = Integer.parseInt(campoBuscar.getText());
         AccesorioBDD accesorios = new AccesorioBDD();
         Accesorio a = accesorios.read(id);
+        //Se obtienen los atributos del objeto devuelto y se crea la fila en la tabla
         Object[] row = { a.getId(), a.getMarca(), a.getModelo(), a.getPrecio(),a.getTipo() };
         tbl = (DefaultTableModel)jTable1.getModel();
-        
-        //jTable1.getColumn("IMAGEN").setCellRenderer(new ButtonRenderer());
-        //jTable1.getColumn("IMAGEN").setCellEditor(new ButtonEditor(new JCheckBox()));
-        
+    
         tbl.addRow(row);
         
         
     }//GEN-LAST:event_botonBuscarActionPerformed
 
+    /**
+     * Limpia los campos de la tabla de la ventana
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         tbl.setRowCount(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 /*
-    class ButtonRenderer extends JButton implements TableCellRenderer 
-  {
-    public ButtonRenderer() {
-      setOpaque(true);
-    }
-    public Component getTableCellRendererComponent(JTable table, Object value,
-    boolean isSelected, boolean hasFocus, int row, int column) {
-      setText((value == null) ? "Ver imagen" : value.toString());
-      return this;
-    }
-  }
-  class ButtonEditor extends DefaultCellEditor 
-  {
-    private String label;
-    
-    public ButtonEditor(JCheckBox checkBox)
-    {
-      super(checkBox);
-    }
-    public Component getTableCellEditorComponent(JTable table, Object value,
-    boolean isSelected, int row, int column) 
-    {
-      label = (value == null) ? "Ver Imagen" : value.toString();
-      button.setText(label);
-      
-      return button;
-    }
-    public Object getCellEditorValue() 
-    {
-      return new String(label);
-    }
-  }*/
+
     /**
      * @param args the command line arguments
      */

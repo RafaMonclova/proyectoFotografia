@@ -19,35 +19,35 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author usuario
+ * @author RAFAEL MONCLOVA SUANO
  */
 public class DatosCamara extends javax.swing.JFrame {
 
     
-    /**
-     * Creates new form DatosProducto
-     */
+    //El constructor recibe los datos del Accesorio para ser mostrados en la ventana
     public DatosCamara(String id, String marca, String modelo, String precio) {
         
+        //Establece el fondo de la ventana
         BufferedImage img = null;
         try {
             img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Image dimg = img.getScaledInstance(800, 508, Image.SCALE_SMOOTH);
+        Image dimg = img.getScaledInstance(514, 510, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
         
         setContentPane(new JLabel(imageIcon));
         
         initComponents();
         
-        
+        //Se asignan los datos recibidos a su campo correspondiente
         campoID.setText(id);
         campoMarca.setText(marca);
         campoModelo.setText(modelo);
         campoPrecio.setText(precio);
         
+        //Carga la imagen en el panel. Es necesario enviar a CargarImagen() el nombre de la tabla y el campo donde buscar(clave primaria o única)
         panel.add(new CargarImagen("CAMARA",modelo));
         
     }
@@ -156,22 +156,21 @@ public class DatosCamara extends javax.swing.JFrame {
                         .addComponent(campoID)
                         .addComponent(campoMarca))
                     .addComponent(jLabel4)
-                    .addComponent(mensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mensaje, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(88, 88, 88)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2))
                     .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60))
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(94, 94, 94)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -185,18 +184,20 @@ public class DatosCamara extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(campoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel4)))
+                        .addComponent(jLabel4))
+                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(campoPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addComponent(campoPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jButton1))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -207,22 +208,30 @@ public class DatosCamara extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoMarcaActionPerformed
 
+    /**
+     * Actualiza los datos en la BDD
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        
+        //Crea el objeto con los datos de los campos, y los actualiza mediante update()
         CamaraBDD camaras = new CamaraBDD();
         Camara c = new Camara(Integer.parseInt(campoID.getText()),campoMarca.getText(),campoModelo.getText(),Double.parseDouble(campoPrecio.getText()));
-        c.setImagen(getClass().getResourceAsStream("/resources/"+c.getModelo()+".png"));
+        //c.setImagen(getClass().getResourceAsStream("/resources/"+c.getModelo()+".png"));
 
         camaras.update(c);
         
-        CargarImagen prueba = new CargarImagen("CAMARA",c.getModelo());
-        prueba.setVisible(true);
+        //CargarImagen prueba = new CargarImagen("CAMARA",c.getModelo());
+        //prueba.setVisible(true);
         
         mensaje.setText("Datos actualizados.");
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Borra el producto que se está viendo en la ventana de la BDD
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
         
@@ -231,7 +240,7 @@ public class DatosCamara extends javax.swing.JFrame {
                 
         CamaraBDD camaras = new CamaraBDD();
         camaras.delete(Integer.parseInt(id));
-                
+        //Una vez borrado, se cierra la ventana    
         super.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

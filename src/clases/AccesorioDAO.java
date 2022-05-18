@@ -11,8 +11,9 @@ package clases;
  */
 public interface AccesorioDAO {
     
+    //Métodos para acceder a la BDD
     public void update(Accesorio a);
-    public void insert(Accesorio a);
+    public void insert(Accesorio a,String imagen);
     public void delete(int id);
     public Accesorio read(int id);
     

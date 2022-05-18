@@ -16,30 +16,34 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author usuario
+ * @author RAFAEL MONCLOVA SUANO
  */
 public class CargarImagen extends JInternalFrame{
     
     public CargarImagen(String clase, String modelo) 
   {
+      
     super("Imagen");
     setSize(240, 240);
     
     setTitle("Imagen del producto");
     try { 
-      //creation and execution of the request
+      
+      //Establece la conexión con la BDD  
       Class.forName("com.mysql.cj.jdbc.Driver");
 						
-      Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/fotografia", "usuario", "root");
+      Connection connection=DriverManager.getConnection(Login.servidor, Login.usuario, Login.clave);
+      
+      //Selecciona el valor del campo IMAGEN de la tabla y ejecuta la consulta
       PreparedStatement statement = connection.prepareStatement("SELECT IMAGEN FROM "+clase+" WHERE MODELO ='"+modelo+"'");
       
       ResultSet res = statement.executeQuery();
-      //get image as byte
+      //Obtiene la imagen como un array de bytes
       byte[] image = null;
       while (res.next()) {
         image = res.getBytes("IMAGEN");
       }
-      //create the image 
+      //Crea la imagen y la muestra en la ventana
       Image img = Toolkit.getDefaultToolkit().createImage(image);
       ImageIcon icone = new ImageIcon(img);
       JLabel l = new JLabel();

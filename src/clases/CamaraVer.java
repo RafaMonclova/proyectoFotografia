@@ -30,18 +30,16 @@ import javax.swing.table.TableCellRenderer;
 
 /**
  *
- * @author usuario
+ * @author RAFAEL MONCLOVA SUANO
  */
 public class CamaraVer extends javax.swing.JFrame {
 
     private int id = 0;
     JButton button = new JButton();
     DefaultTableModel tbl;
-    /**
-     * Creates new form CamaraVentana
-     */
+    
     public CamaraVer() {
-        
+        //Establece el fondo de la ventana
         BufferedImage img = null;
         try {
             img = ImageIO.read(getClass().getResourceAsStream("/resources/fondo.jpg"));
@@ -53,9 +51,13 @@ public class CamaraVer extends javax.swing.JFrame {
         setContentPane(new JLabel(imageIcon));
         
         initComponents();
+        
+        //Esta linea hace que puedan ordenarse las lineas de la tabla según la columna donde se haga click
         jTable1.setAutoCreateRowSorter(true);
         jLabel1.setOpaque(true);
-    MouseAdapter evento = new MouseAdapter() {
+        
+        //Crea un evento que al pulsar sobre una fila, se abra una ventana con la información de ese producto
+        MouseAdapter evento = new MouseAdapter() {
         public void mouseClicked(MouseEvent e) {
             int row = jTable1.getSelectedRow();
             String id = jTable1.getModel().getValueAt(row, 0).toString();
@@ -67,42 +69,30 @@ public class CamaraVer extends javax.swing.JFrame {
         }
         };
     jTable1.addMouseListener(evento);
-    CamaraBDD camaras = new CamaraBDD();
+    
+        //Se crea la clase para acceder a la BDD y se crea una lista de Accesorios, rellenada con el método readAll() por todos los registros de la BDD
+        CamaraBDD camaras = new CamaraBDD();
         ArrayList<Camara> lista = camaras.readAll();
         
         for (int i = 0; i < lista.size(); i++) {
-            final Camara actual = lista.get(i);
+            //Por cada objeto de la lista, se crea la fila de la tabla con los valores de los atributos
             Object[] row = { lista.get(i).getId(), lista.get(i).getMarca(), lista.get(i).getModelo(), lista.get(i).getPrecio() };
             tbl = (DefaultTableModel)jTable1.getModel();
             
-            //jTable1.getColumn("IMAGEN").setCellRenderer(new ButtonRenderer());
-            //jTable1.getColumn("IMAGEN").setCellEditor(new ButtonEditor(new JCheckBox()));
- 
-            
             tbl.addRow(row);
         }
-        /*
-        button.addActionListener(new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int row = jTable1.getSelectedRow();
-                String value = jTable1.getModel().getValueAt(row, 2).toString();
-                CargarImagen prueba = new CargarImagen(value);
-                prueba.setVisible(true);
-                
-            }
-        });
-        */
         jLabel2.setText("SE HAN ENCONTRADO "+lista.size()+" REGISTROS");
         
     }
     
     
-    
+    /**
+     * Método que actualiza los datos mostrados en la tabla
+     */
     public void actualizarTabla(){
         
-        
+        //Borra todos los datos de la tabla y los vuelve a cargar con información actualizada de la BDD
         tbl.setRowCount(0);
         CamaraBDD camaras = new CamaraBDD();
         ArrayList<Camara> lista = camaras.readAll();
@@ -111,71 +101,15 @@ public class CamaraVer extends javax.swing.JFrame {
             final Camara actual = lista.get(i);
             Object[] row = { lista.get(i).getId(), lista.get(i).getMarca(), lista.get(i).getModelo(), lista.get(i).getPrecio() };
             tbl = (DefaultTableModel)jTable1.getModel();
-            
-            //jTable1.getColumn("IMAGEN").setCellRenderer(new ButtonRenderer());
-            //jTable1.getColumn("IMAGEN").setCellEditor(new ButtonEditor(new JCheckBox()));
- 
-            
+
             tbl.addRow(row);
         }
         
         jLabel2.setText("SE HAN ENCONTRADO "+lista.size()+" REGISTROS");
-        /*
-        button.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int row = jTable1.getSelectedRow();
-                String value = jTable1.getModel().getValueAt(row, 2).toString();
-                CargarImagen prueba = new CargarImagen(value);
-                prueba.setVisible(true);
-                
-            }
-        });
-        */
-        
-        
-        
-        
+       
         
     }
     
-    
-    
-    /*
-    class ButtonRenderer extends JButton implements TableCellRenderer 
-  {
-    public ButtonRenderer() {
-      setOpaque(true);
-    }
-    public Component getTableCellRendererComponent(JTable table, Object value,
-    boolean isSelected, boolean hasFocus, int row, int column) {
-      setText((value == null) ? "Ver imagen" : value.toString());
-      return this;
-    }
-  }
-  class ButtonEditor extends DefaultCellEditor 
-  {
-    private String label;
-    
-    public ButtonEditor(JCheckBox checkBox)
-    {
-      super(checkBox);
-    }
-    public Component getTableCellEditorComponent(JTable table, Object value,
-    boolean isSelected, int row, int column) 
-    {
-      label = (value == null) ? "Ver Imagen" : value.toString();
-      button.setText(label);
-      
-      return button;
-    }
-    public Object getCellEditorValue() 
-    {
-      return new String(label);
-    }
-  }
-    */
         
 
     /**
@@ -286,16 +220,20 @@ public class CamaraVer extends javax.swing.JFrame {
         
         
         int row = jTable1.getSelectedRow();
-                String id = jTable1.getModel().getValueAt(row, 0).toString();
+        String id = jTable1.getModel().getValueAt(row, 0).toString();
                 
-                
-                CamaraBDD camaras = new CamaraBDD();
-                camaras.delete(Integer.parseInt(id));
-                tbl.removeRow(row);
+        //Borra de la BDD y de la tabla de la ventana       
+        CamaraBDD camaras = new CamaraBDD();
+        camaras.delete(Integer.parseInt(id));
+        tbl.removeRow(row);
                 
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Botón para actualizar la tabla de la ventana
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         actualizarTabla();
     }//GEN-LAST:event_jButton2ActionPerformed

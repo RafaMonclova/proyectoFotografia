@@ -15,13 +15,11 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author alumno
+ * @author RAFAEL MONCLOVA SUANO
  */
 public class MenuProductos extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form MenuPrincipal
-     */
+    
     public MenuProductos() {
 
       
@@ -110,12 +108,13 @@ public class MenuProductos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAccesorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAccesorioActionPerformed
+        //Crea la ventana del menú de Accesorios
         AccesorioMenu v = new AccesorioMenu();
         v.setVisible(true);
     }//GEN-LAST:event_botonAccesorioActionPerformed
 
     private void botonCamaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCamaraActionPerformed
-        
+        //Crea la ventana del menú de Camaras
         CamaraMenu v = new CamaraMenu();
         v.setVisible(true);
         
