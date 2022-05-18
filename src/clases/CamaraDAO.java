@@ -5,6 +5,8 @@
  */
 package clases;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author RAFAEL MONCLOVA SUANO
@@ -15,6 +17,7 @@ public interface CamaraDAO {
     public void update(Camara c);
     public void insert(Camara c,String imagen);
     public void delete(int id);
-    public Camara read(int id);
+    public Camara read(String modelo);
+    public ArrayList<Camara> readAll();
     
 }

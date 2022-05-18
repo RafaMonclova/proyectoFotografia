@@ -220,6 +220,7 @@ public class ClienteBDD implements ClienteDAO{
      * Lista con todos los Clientes de la BDD
      * @return Devuelve una lista con todos los Clientes registrados
      */
+    @Override
     public ArrayList<Cliente> readAll() {
         
         ArrayList<Cliente> clientes = new ArrayList();

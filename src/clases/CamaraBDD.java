@@ -174,17 +174,17 @@ public class CamaraBDD implements CamaraDAO{
     }
 
     /**
-     * Obtiene la cámara con el id recibido 
-     * @param id Recibe el id a buscar
-     * @return Devuelve un objeto Camara con el id dado
+     * Obtiene la cámara con el modelo recibido 
+     * @param modelo Recibe el modelo a buscar
+     * @return Devuelve un objeto Camara con el modelo dado
      */
     @Override
-    public Camara read(int id) {
+    public Camara read(String modelo) {
         
         Camara c = null;
         
         //Se guarda la consulta por id recibido
-        String query="SELECT * FROM CAMARA WHERE ID="+id;
+        String query="SELECT * FROM CAMARA WHERE MODELO='"+modelo+"'";
 				
 	 try{	
 	 	 
@@ -225,6 +225,7 @@ public class CamaraBDD implements CamaraDAO{
      * Lista con todos las Camaras de la BDD
      * @return Devuelve una lista con todos las Camaras registradas
      */
+    @Override
     public ArrayList<Camara> readAll() {
         
         ArrayList<Camara> camaras = new ArrayList();

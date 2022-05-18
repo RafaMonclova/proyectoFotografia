@@ -128,6 +128,9 @@ public class CamaraVer extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
+        setTitle("LISTADO CÁMARAS");
+        setResizable(false);
+
         jLabel1.setBackground(new java.awt.Color(102, 102, 255));
         jLabel1.setFont(new java.awt.Font("Fira Sans Heavy", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -214,6 +217,7 @@ public class CamaraVer extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

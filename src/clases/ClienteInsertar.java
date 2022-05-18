@@ -86,6 +86,7 @@ public class ClienteInsertar extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
+        setTitle("NUEVO CLIENTE");
         setResizable(false);
 
         jLabel1.setBackground(new java.awt.Color(102, 102, 255));
@@ -284,6 +285,7 @@ public class ClienteInsertar extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDNIActionPerformed

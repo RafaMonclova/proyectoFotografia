@@ -51,6 +51,9 @@ public class ClienteMenu extends javax.swing.JFrame {
         botonInsertar = new javax.swing.JButton();
         botonBuscar = new javax.swing.JButton();
 
+        setTitle("MENÚ CLIENTES");
+        setResizable(false);
+
         jLabel1.setBackground(new java.awt.Color(102, 102, 255));
         jLabel1.setFont(new java.awt.Font("Fira Sans Heavy", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -119,6 +122,7 @@ public class ClienteMenu extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed

@@ -89,6 +89,7 @@ public class CamaraInsertar extends javax.swing.JFrame {
         rutaImagen = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
 
+        setTitle("NUEVA CÁMARA");
         setResizable(false);
 
         jLabel1.setBackground(new java.awt.Color(102, 102, 255));
@@ -275,6 +276,7 @@ public class CamaraInsertar extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIDActionPerformed

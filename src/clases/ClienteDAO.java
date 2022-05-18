@@ -5,6 +5,8 @@
  */
 package clases;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author RAFAEL MONCLOVA SUANO
@@ -16,5 +18,6 @@ public interface ClienteDAO {
     public void insert(Cliente c,String imagen);
     public void delete(String dni);
     public Cliente read(String dni);
+    public ArrayList<Cliente> readAll();
     
 }

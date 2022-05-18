@@ -55,6 +55,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         panel = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menú Principal");
+        setResizable(false);
 
         botonCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/cliente.png"))); // NOI18N
         botonCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +135,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         botonProducto.setContentAreaFilled(false);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonClienteActionPerformed

@@ -170,17 +170,17 @@ public class AccesorioBDD implements AccesorioDAO{
     }
 
     /**
-     * Obtiene el accesorio con el id recibido 
-     * @param id Recibe el id a buscar
-     * @return Devuelve un objeto Accesorio con el id dado
+     * Obtiene el accesorio con el modelo recibido 
+     * @param modelo Recibe el modelo a buscar
+     * @return Devuelve un objeto Accesorio con el modelo dado
      */
     @Override
-    public Accesorio read(int id) {
+    public Accesorio read(String modelo) {
         
         Accesorio a = null;
         
         //Se guarda la consulta por id recibido
-        String query="SELECT * FROM ACCESORIO WHERE ID="+id;
+        String query="SELECT * FROM ACCESORIO WHERE MODELO='"+modelo+"'";
 				
 	 try{	
 	 	 
@@ -222,6 +222,7 @@ public class AccesorioBDD implements AccesorioDAO{
      * Lista con todos los Accesorios de la BDD
      * @return Devuelve una lista con todos los Accesorios registrados
      */
+    @Override
     public ArrayList<Accesorio> readAll() {
         
         ArrayList<Accesorio> accesorios = new ArrayList();

@@ -89,6 +89,9 @@ public class DatosCamara extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
+        setTitle("INFORMACIÓN CÁMARA");
+        setResizable(false);
+
         jLabel1.setFont(new java.awt.Font("Fira Sans", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("ID");

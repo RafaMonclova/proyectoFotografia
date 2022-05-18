@@ -29,7 +29,7 @@ import javax.swing.table.TableCellRenderer;
  */
 public class CamaraBuscar extends javax.swing.JFrame {
 
-    private int id = 0;
+    private String modelo = "";
     DefaultTableModel tbl;
     
     public CamaraBuscar() {
@@ -80,6 +80,9 @@ public class CamaraBuscar extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
+        setTitle("BUSCADOR CÁMARAS");
+        setResizable(false);
+
         jLabel1.setBackground(new java.awt.Color(102, 102, 255));
         jLabel1.setFont(new java.awt.Font("Fira Sans Heavy", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -99,7 +102,7 @@ public class CamaraBuscar extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Fira Sans", 3, 13)); // NOI18N
-        jLabel2.setText("Introduce el código de producto");
+        jLabel2.setText("Introduce el modelo de producto");
 
         campoBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,6 +182,7 @@ public class CamaraBuscar extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBuscarActionPerformed
@@ -187,10 +191,10 @@ public class CamaraBuscar extends javax.swing.JFrame {
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         
-        //Guarda el id del campo Buscar y realiza la consulta por el método read()
-        id = Integer.parseInt(campoBuscar.getText());
+        //Guarda el modelo del campo Buscar y realiza la consulta por el método read()
+        modelo = campoBuscar.getText();
         CamaraBDD camaras = new CamaraBDD();
-        Camara c = camaras.read(id);
+        Camara c = camaras.read(modelo);
         //Se obtienen los atributos del objeto devuelto y se crea la fila en la tabla
         Object[] row = { c.getId(), c.getMarca(), c.getModelo(), c.getPrecio() };
         tbl = (DefaultTableModel)jTable1.getModel();

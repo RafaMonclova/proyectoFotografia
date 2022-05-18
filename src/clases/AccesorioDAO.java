@@ -5,6 +5,8 @@
  */
 package clases;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author RAFAEL MONCLOVA SUANO
@@ -15,6 +17,7 @@ public interface AccesorioDAO {
     public void update(Accesorio a);
     public void insert(Accesorio a,String imagen);
     public void delete(int id);
-    public Accesorio read(int id);
+    public Accesorio read(String modelo);
+    public ArrayList<Accesorio> readAll();
     
 }

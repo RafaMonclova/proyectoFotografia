@@ -40,7 +40,8 @@ public class MenuProductos extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Seleccione producto");
 
         botonAccesorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/accesorio.png"))); // NOI18N
         botonAccesorio.addActionListener(new java.awt.event.ActionListener() {
@@ -76,8 +77,7 @@ public class MenuProductos extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonCamara)
-                        .addGap(18, 18, 18)))
+                        .addComponent(botonCamara)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(153, 153, 153)
