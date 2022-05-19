@@ -14,6 +14,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
@@ -38,10 +40,10 @@ public class CarritoVer extends javax.swing.JFrame {
     JButton button = new JButton();
     DefaultTableModel tbl;
     
-    
+    //Producto siguiente;
             
     
-    public CarritoVer() {
+    public CarritoVer() throws ClassNotFoundException {
         //Establece el fondo de la ventana
         BufferedImage img = null;
         try {
@@ -80,26 +82,51 @@ public class CarritoVer extends javax.swing.JFrame {
     
         CompraBDD compras = new CompraBDD();
         ArrayList<Compra> lista = compras.readAll();
-        
-        
-            
-        
+   
         
         for (int i = 0; i < lista.size(); i++) {
             //Por cada objeto de la lista, se crea la fila de la tabla con los valores de los atributos
             
             
-            CamaraBDD camaras = new CamaraBDD();
-            Camara cam = camaras.read(lista.get(i).getModelo());
-            Compra c = new Compra(lista.get(i).getCodigo(),cam.getModelo(),lista.get(i).getCantidad(),cam.getPrecio()*(double)(lista.get(i).getCantidad()));
+                CamaraBDD camaras = new CamaraBDD();
+                AccesorioBDD accesorios = new AccesorioBDD();
+                
+                if(camaras.read(lista.get(i).getModelo()) != null){
+                    
+                    Camara cam = camaras.read(lista.get(i).getModelo());
+                    Compra c = new Compra(lista.get(i).getCodigo(),cam.getModelo(),lista.get(i).getCantidad(),cam.getPrecio()*(double)(lista.get(i).getCantidad()));
             
-            compras.update(c);
+                    compras.update(c);
             
-            Object[] row = { lista.get(i).getCodigo(), lista.get(i).getModelo(), c.getCantidad(), c.getPrecio() };
+                    Object[] row = { lista.get(i).getCodigo(), lista.get(i).getModelo(), c.getCantidad(), c.getPrecio() };
             
-            tbl = (DefaultTableModel)jTable1.getModel();
+                    tbl = (DefaultTableModel)jTable1.getModel();
             
-            tbl.addRow(row);
+                    tbl.addRow(row);
+                    
+                    //siguiente = camaras.read(lista.get(i+1).getModelo());
+                    
+                }
+                else{
+                    
+                    Accesorio acc = accesorios.read(lista.get(i).getModelo());
+                    Compra c = new Compra(lista.get(i).getCodigo(),acc.getModelo(),lista.get(i).getCantidad(),acc.getPrecio()*(double)(lista.get(i).getCantidad()));
+            
+                    compras.update(c);
+            
+                    Object[] row = { lista.get(i).getCodigo(), lista.get(i).getModelo(), c.getCantidad(), c.getPrecio() };
+            
+                    tbl = (DefaultTableModel)jTable1.getModel();
+            
+                    tbl.addRow(row);
+                    
+                    //siguiente = accesorios.read(lista.get(i+1).getModelo());
+                    
+                }
+                        
+            
+                
+                
         }
 
         jLabel2.setText("SE HAN ENCONTRADO "+lista.size()+" REGISTROS");
@@ -117,25 +144,44 @@ public class CarritoVer extends javax.swing.JFrame {
         CompraBDD compras = new CompraBDD();
         ArrayList<Compra> lista = compras.readAll();
         
-        
-            
-        
-        
+       
         for (int i = 0; i < lista.size(); i++) {
             //Por cada objeto de la lista, se crea la fila de la tabla con los valores de los atributos
             
             
-            CamaraBDD camaras = new CamaraBDD();
-            Camara cam = camaras.read(lista.get(i).getModelo());
-            Compra c = new Compra(lista.get(i).getCodigo(),cam.getModelo(),lista.get(i).getCantidad(),cam.getPrecio()*(double)(lista.get(i).getCantidad()));
+                CamaraBDD camaras = new CamaraBDD();
+                AccesorioBDD accesorios = new AccesorioBDD();
+                
+                if(camaras.read(lista.get(i).getModelo()) != null){
+                    
+                    Camara cam = camaras.read(lista.get(i).getModelo());
+                    Compra c = new Compra(lista.get(i).getCodigo(),cam.getModelo(),lista.get(i).getCantidad(),cam.getPrecio()*(double)(lista.get(i).getCantidad()));
             
-            compras.update(c);
+                    compras.update(c);
             
-            Object[] row = { lista.get(i).getCodigo(), lista.get(i).getModelo(), c.getCantidad(), c.getPrecio() };
+                    Object[] row = { lista.get(i).getCodigo(), lista.get(i).getModelo(), c.getCantidad(), c.getPrecio() };
             
-            tbl = (DefaultTableModel)jTable1.getModel();
+                    tbl = (DefaultTableModel)jTable1.getModel();
             
-            tbl.addRow(row);
+                    tbl.addRow(row);
+                    
+                }
+                else{
+                    
+                    Accesorio acc = accesorios.read(lista.get(i).getModelo());
+                    Compra c = new Compra(lista.get(i).getCodigo(),acc.getModelo(),lista.get(i).getCantidad(),acc.getPrecio()*(double)(lista.get(i).getCantidad()));
+            
+                    compras.update(c);
+            
+                    Object[] row = { lista.get(i).getCodigo(), lista.get(i).getModelo(), c.getCantidad(), c.getPrecio() };
+            
+                    tbl = (DefaultTableModel)jTable1.getModel();
+            
+                    tbl.addRow(row);
+                    
+                }
+   
+            
         }
 
         jLabel2.setText("SE HAN ENCONTRADO "+lista.size()+" REGISTROS");
@@ -311,7 +357,11 @@ public class CarritoVer extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CarritoVer().setVisible(true);
+                try {
+                    new CarritoVer().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CarritoVer.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

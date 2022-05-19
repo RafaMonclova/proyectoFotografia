@@ -37,6 +37,8 @@ public class CamaraVer extends javax.swing.JFrame {
     private int id = 0;
     JButton button = new JButton();
     DefaultTableModel tbl;
+    public static Camara siguienteCamara;
+    
     
     public CamaraVer() {
         //Establece el fondo de la ventana
@@ -80,6 +82,13 @@ public class CamaraVer extends javax.swing.JFrame {
             tbl = (DefaultTableModel)jTable1.getModel();
             
             tbl.addRow(row);
+            
+            try{
+                siguienteCamara = camaras.read(lista.get(i+1).getModelo());
+            }catch(IndexOutOfBoundsException ex){
+                System.out.println("No hay más productos");
+            }
+            
         }
 
         jLabel2.setText("SE HAN ENCONTRADO "+lista.size()+" REGISTROS");
