@@ -53,6 +53,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         panel = new javax.swing.JDesktopPane();
+        botonCarrito = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menú Principal");
@@ -91,6 +92,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGap(0, 302, Short.MAX_VALUE)
         );
 
+        botonCarrito.setText("carrito");
+        botonCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCarritoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,7 +108,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botonProducto)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botonProducto)
+                                .addGap(125, 125, 125)
+                                .addComponent(botonCarrito))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(51, 51, 51)
                                 .addComponent(jLabel1)))
@@ -127,7 +138,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonProducto)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonProducto)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(botonCarrito)
+                                .addGap(86, 86, 86)))))
                 .addContainerGap())
         );
 
@@ -154,6 +169,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_botonProductoActionPerformed
+
+    private void botonCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCarritoActionPerformed
+       
+        
+        CarritoVer v = new CarritoVer();
+        v.setVisible(true);
+        
+    }//GEN-LAST:event_botonCarritoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,6 +214,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonCarrito;
     private javax.swing.JButton botonCliente;
     private javax.swing.JButton botonProducto;
     private javax.swing.JLabel jLabel1;
