@@ -65,17 +65,24 @@ public class CarritoVer extends javax.swing.JFrame {
         MouseAdapter evento = new MouseAdapter() {
         public void mouseClicked(MouseEvent e) {
             int row = jTable1.getSelectedRow();
-            
+            CamaraBDD camaras = new CamaraBDD();
+            AccesorioBDD accesorios = new AccesorioBDD();
           
             int codigo = (int)jTable1.getModel().getValueAt(row, 0);
             CompraBDD compras = new CompraBDD();
             Compra c = compras.read(codigo);
             
             
+            if(camaras.read(c.getModelo()) != null){
+                DatosCompra datos = new DatosCompra("CAMARA",""+c.getCodigo(),c.getModelo(),""+c.getCantidad(),""+c.getPrecio());
+                datos.setVisible(true);
+            }
+            if(accesorios.read(c.getModelo()) != null){
+                DatosCompra datos = new DatosCompra("ACCESORIO",""+c.getCodigo(),c.getModelo(),""+c.getCantidad(),""+c.getPrecio());
+                datos.setVisible(true);
+            }
             
             
-            DatosCompra datos = new DatosCompra(""+c.getCodigo(),c.getModelo(),""+c.getCantidad(),""+c.getPrecio());
-            datos.setVisible(true);
         }
         };
     jTable1.addMouseListener(evento);
@@ -107,7 +114,7 @@ public class CarritoVer extends javax.swing.JFrame {
                     //siguiente = camaras.read(lista.get(i+1).getModelo());
                     
                 }
-                else{
+                if(accesorios.read(lista.get(i).getModelo()) != null){
                     
                     Accesorio acc = accesorios.read(lista.get(i).getModelo());
                     Compra c = new Compra(lista.get(i).getCodigo(),acc.getModelo(),lista.get(i).getCantidad(),acc.getPrecio()*(double)(lista.get(i).getCantidad()));
@@ -242,7 +249,7 @@ public class CarritoVer extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Borrar del carrito");
+        jButton1.setText("Vaciar carrito");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -300,14 +307,18 @@ public class CarritoVer extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
+        CompraBDD compras = new CompraBDD();
+        ArrayList<Compra> listaCompras = new ArrayList();
+        listaCompras = compras.readAll();
         
-        int row = jTable1.getSelectedRow();
-        String id = jTable1.getModel().getValueAt(row, 0).toString();
-                
-        //Borra de la BDD y de la tabla de la ventana       
-        CamaraBDD camaras = new CamaraBDD();
-        camaras.delete(Integer.parseInt(id));
-        tbl.removeRow(row);
+        for (int i = 0; i < listaCompras.size(); i++) {
+            
+            compras.delete(listaCompras.get(i).getCodigo());
+            tbl = (DefaultTableModel)jTable1.getModel();
+        }
+        
+        tbl.setRowCount(0);
+        jLabel2.setText("SE HAN ENCONTRADO "+listaCompras.size()+" REGISTROS");
                 
         
     }//GEN-LAST:event_jButton1ActionPerformed

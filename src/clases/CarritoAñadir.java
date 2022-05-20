@@ -17,6 +17,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -58,13 +59,15 @@ public class CarritoAñadir extends javax.swing.JFrame {
         
         initComponents();
 
-        jComboBox1.removeAllItems();
-        jComboBox1.addItem("CAMARA");
-        jComboBox1.addItem("ACCESORIO");
+        //Configura los botones ComboBox para elegir producto y los modelos disponibles
+        elegirProducto();
+        elegirModelo();
         
-        
-        
-        
+        jComboBox1.addActionListener (new ActionListener () {
+            public void actionPerformed(ActionEvent e) {
+                elegirModelo();
+            }
+        });
         
         jLabel1.setOpaque(true);
         
@@ -89,9 +92,9 @@ public class CarritoAñadir extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        campoModelo = new javax.swing.JTextField();
         panel = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        elegirModelo = new javax.swing.JComboBox<>();
 
         setTitle("NUEVA CÁMARA");
         setResizable(false);
@@ -145,12 +148,6 @@ public class CarritoAñadir extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("MODELO");
 
-        campoModelo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoModeloActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
@@ -169,6 +166,8 @@ public class CarritoAñadir extends javax.swing.JFrame {
             }
         });
 
+        elegirModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -182,11 +181,10 @@ public class CarritoAñadir extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(campoCantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(campoModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)))
+                            .addComponent(campoCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(elegirModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -214,7 +212,7 @@ public class CarritoAñadir extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(campoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(elegirModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(100, 100, 100)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -228,6 +226,51 @@ public class CarritoAñadir extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void elegirProducto(){
+        
+        jComboBox1.removeAllItems();
+        jComboBox1.addItem("CAMARA");
+        jComboBox1.addItem("ACCESORIO");
+        
+    }
+    
+    public void elegirModelo(){
+        
+        elegirModelo.removeAllItems();
+        
+        CamaraBDD camaras = new CamaraBDD();
+        AccesorioBDD accesorios = new AccesorioBDD();
+        
+        if(jComboBox1.getSelectedItem().equals("CAMARA")){
+            elegirModelo.removeAllItems();
+            ArrayList<Camara> listaCamaras = new ArrayList();
+            listaCamaras = camaras.readAll();
+            
+            for (int i = 0; i < listaCamaras.size(); i++) {
+                
+                elegirModelo.addItem(listaCamaras.get(i).getModelo());
+                
+            }
+            
+        }
+        if(jComboBox1.getSelectedItem().equals("ACCESORIO")){
+            elegirModelo.removeAllItems();
+            ArrayList<Accesorio> listaAccesorios = new ArrayList();
+            listaAccesorios = accesorios.readAll();
+            
+            for (int i = 0; i < listaAccesorios.size(); i++) {
+                
+                elegirModelo.addItem(listaAccesorios.get(i).getModelo());
+                
+            }
+            
+        }
+        
+        
+        
+    }
+    
+    
     private void campoCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCantidadActionPerformed
         
     }//GEN-LAST:event_campoCantidadActionPerformed
@@ -239,7 +282,8 @@ public class CarritoAñadir extends javax.swing.JFrame {
             
             
             CamaraBDD camaras = new CamaraBDD();
-            Camara cam = camaras.read(campoModelo.getText());
+            //Camara cam = camaras.read(campoModelo.getText());
+            Camara cam = camaras.read(elegirModelo.getSelectedItem().toString());
             Compra c = new Compra(cam.getModelo(),Integer.parseInt(campoCantidad.getText()),cam.getPrecio()*Double.parseDouble(campoCantidad.getText()));
         
             compras.insert(c);
@@ -256,7 +300,7 @@ public class CarritoAñadir extends javax.swing.JFrame {
         
             
             campoCantidad.setText("");
-            campoModelo.setText("");
+            //campoModelo.setText("");
 
             
         }
@@ -264,7 +308,8 @@ public class CarritoAñadir extends javax.swing.JFrame {
             
 
             AccesorioBDD accesorios = new AccesorioBDD();
-            Accesorio acc = accesorios.read(campoModelo.getText());
+            //Accesorio acc = accesorios.read(campoModelo.getText());
+            Accesorio acc = accesorios.read(elegirModelo.getSelectedItem().toString());
             Compra c = new Compra(acc.getModelo(),Integer.parseInt(campoCantidad.getText()),acc.getPrecio()*Double.parseDouble(campoCantidad.getText()));
 
             compras.insert(c);
@@ -279,7 +324,7 @@ public class CarritoAñadir extends javax.swing.JFrame {
         
             
             campoCantidad.setText("");
-            campoModelo.setText("");
+            //campoModelo.setText("");
 
             
         }
@@ -289,11 +334,9 @@ public class CarritoAñadir extends javax.swing.JFrame {
         
     }//GEN-LAST:event_botonAñadirActionPerformed
 
-    private void campoModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoModeloActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoModeloActionPerformed
-
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        
+       
         
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
@@ -462,7 +505,7 @@ public class CarritoAñadir extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAñadir;
     private javax.swing.JTextField campoCantidad;
-    private javax.swing.JTextField campoModelo;
+    private javax.swing.JComboBox<String> elegirModelo;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

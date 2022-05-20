@@ -164,7 +164,7 @@ public class AccesorioVer extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Borrar producto");
+        jButton1.setText("Borrar todos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -226,15 +226,24 @@ public class AccesorioVer extends javax.swing.JFrame {
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        
-        int row = jTable1.getSelectedRow();
-        String id = jTable1.getModel().getValueAt(row, 0).toString();
-                
-        //Borra de la BDD y de la tabla de la ventana        
+        //Borrar todos los registros
         AccesorioBDD accesorios = new AccesorioBDD();
-        accesorios.delete(Integer.parseInt(id));
-        tbl.removeRow(row);
-                
+        ArrayList<Accesorio> lista = accesorios.readAll();
+        
+        for (int i = 0; i < lista.size(); i++) {
+            
+            String id = jTable1.getModel().getValueAt(i, 0).toString();
+            accesorios.delete(Integer.parseInt(id));
+            
+            tbl = (DefaultTableModel)jTable1.getModel();
+            
+            
+        }
+        tbl.setRowCount(0);
+        jLabel2.setText("SE HAN ENCONTRADO "+lista.size()+" REGISTROS");
+        
+        
+              
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -178,7 +178,7 @@ public class CamaraVer extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Borrar producto");
+        jButton1.setText("Borrar todos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -237,13 +237,21 @@ public class CamaraVer extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         
-        int row = jTable1.getSelectedRow();
-        String id = jTable1.getModel().getValueAt(row, 0).toString();
-                
-        //Borra de la BDD y de la tabla de la ventana       
+        //Borrar todos los registros
         CamaraBDD camaras = new CamaraBDD();
-        camaras.delete(Integer.parseInt(id));
-        tbl.removeRow(row);
+        ArrayList<Camara> lista = camaras.readAll();
+        
+        for (int i = 0; i < lista.size(); i++) {
+            
+            String id = jTable1.getModel().getValueAt(i, 0).toString();
+            camaras.delete(Integer.parseInt(id));
+            
+            tbl = (DefaultTableModel)jTable1.getModel();
+            
+            
+        }
+        tbl.setRowCount(0);
+        jLabel2.setText("SE HAN ENCONTRADO "+lista.size()+" REGISTROS");
                 
         
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -169,7 +169,7 @@ public class ClienteVer extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Borrar cliente");
+        jButton1.setText("Borrar todos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -226,15 +226,24 @@ public class ClienteVer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
-        int row = jTable1.getSelectedRow();
-        String dni = jTable1.getModel().getValueAt(row, 0).toString();
-                
-        //Borra de la BDD y de la tabla de la ventana          
+
+        //Borrar todos los registros
         ClienteBDD clientes = new ClienteBDD();
-        clientes.delete(dni);
-        tbl.removeRow(row);
+        ArrayList<Cliente> lista = clientes.readAll();
+        
+        for (int i = 0; i < lista.size(); i++) {
+            
+            String dni = jTable1.getModel().getValueAt(i, 0).toString();
+            clientes.delete(dni);
+            
+            tbl = (DefaultTableModel)jTable1.getModel();
+            
+            
+        }
+        tbl.setRowCount(0);
+        jLabel2.setText("SE HAN ENCONTRADO "+lista.size()+" REGISTROS");
+        
+        
                 
         
     }//GEN-LAST:event_jButton1ActionPerformed

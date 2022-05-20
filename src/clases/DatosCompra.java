@@ -25,7 +25,7 @@ public class DatosCompra extends javax.swing.JFrame {
 
     
     //El constructor recibe los datos del Accesorio para ser mostrados en la ventana
-    public DatosCompra(String codigo, String modelo, String cantidad, String precio) {
+    public DatosCompra(String clase, String codigo, String modelo, String cantidad, String precio) {
         
         //Establece el fondo de la ventana
         BufferedImage img = null;
@@ -48,7 +48,7 @@ public class DatosCompra extends javax.swing.JFrame {
         campoPrecio.setText(precio);
         
         //Carga la imagen en el panel. Es necesario enviar a CargarImagen() el nombre de la tabla y el campo donde buscar(clave primaria o única)
-        panel.add(new CargarImagen("CAMARA",modelo));
+        panel.add(new CargarImagen(clase,modelo));
         
     }
 
@@ -281,7 +281,7 @@ public class DatosCompra extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DatosCompra(campoCodigo.getText(),campoModelo.getText(),campoCantidad.getText(),campoPrecio.getText());
+                //new DatosCompra(campoCodigo.getText(),campoModelo.getText(),campoCantidad.getText(),campoPrecio.getText());
             }
         });
     }
