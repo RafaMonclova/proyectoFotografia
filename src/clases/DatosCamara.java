@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -23,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DatosCamara extends javax.swing.JFrame {
 
-    
+    private static int indice = 0;
     //El constructor recibe los datos del Accesorio para ser mostrados en la ventana
     public DatosCamara(String id, String marca, String modelo, String precio) {
         
@@ -78,6 +80,7 @@ public class DatosCamara extends javax.swing.JFrame {
         panel = new javax.swing.JDesktopPane();
         mensaje = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -144,10 +147,17 @@ public class DatosCamara extends javax.swing.JFrame {
 
         mensaje.setFont(new java.awt.Font("Fira Sans", 3, 18)); // NOI18N
 
-        jButton3.setText("Siguiente");
+        jButton3.setText(">");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("<");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -158,11 +168,10 @@ public class DatosCamara extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(mensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel1)
                                 .addComponent(jLabel2)
@@ -170,24 +179,29 @@ public class DatosCamara extends javax.swing.JFrame {
                                 .addComponent(campoModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                                 .addComponent(campoPrecio)
                                 .addComponent(campoID)
-                                .addComponent(campoMarca))
-                            .addComponent(jLabel4)
-                            .addComponent(mensaje, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2))
-                            .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(23, 23, 23))))
+                                .addComponent(campoMarca)))
+                        .addGap(0, 4, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2))
+                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(jButton3)
-                .addGap(18, 18, 18)
+                .addGap(58, 58, 58)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -264,10 +278,68 @@ public class DatosCamara extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         
-        this.dispose();
-        DatosCamara v = new DatosCamara(""+CamaraVer.siguienteCamara.getId(), CamaraVer.siguienteCamara.getMarca(), CamaraVer.siguienteCamara.getModelo(), ""+CamaraVer.siguienteCamara.getPrecio());
-        v.setVisible(true);
+        try{
+            indice++;
+            this.dispose();
+            CamaraBDD camaras = new CamaraBDD();
+            ArrayList<Camara> lista = camaras.readAll();
+        
+        
+            Camara siguiente = lista.get(indice);
+       
+        
+            DatosCamara v = new DatosCamara(""+siguiente.getId(), siguiente.getMarca(), siguiente.getModelo(), ""+siguiente.getPrecio());
+            v.setVisible(true);
+        }catch(IndexOutOfBoundsException ex){
+            
+            indice = 0;
+            CamaraBDD camaras = new CamaraBDD();
+            ArrayList<Camara> lista = camaras.readAll();
+        
+        
+            Camara siguiente = lista.get(indice);
+       
+        
+            DatosCamara v = new DatosCamara(""+siguiente.getId(), siguiente.getMarca(), siguiente.getModelo(), ""+siguiente.getPrecio());
+            v.setVisible(true);
+            
+        }
+        
+        
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       
+       
+        try{
+            indice--;
+            this.dispose();
+            CamaraBDD camaras = new CamaraBDD();
+            ArrayList<Camara> lista = camaras.readAll();
+        
+        
+            Camara siguiente = lista.get(indice);
+       
+        
+            DatosCamara v = new DatosCamara(""+siguiente.getId(), siguiente.getMarca(), siguiente.getModelo(), ""+siguiente.getPrecio());
+            v.setVisible(true);
+        }catch(IndexOutOfBoundsException ex){
+            
+            
+            CamaraBDD camaras = new CamaraBDD();
+            ArrayList<Camara> lista = camaras.readAll();
+        
+            indice = lista.size()-1;
+            
+            Camara siguiente = lista.get(indice);
+       
+            DatosCamara v = new DatosCamara(""+siguiente.getId(), siguiente.getMarca(), siguiente.getModelo(), ""+siguiente.getPrecio());
+            v.setVisible(true);
+            
+        }
+        
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -313,6 +385,7 @@ public class DatosCamara extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

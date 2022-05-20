@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
@@ -37,7 +38,6 @@ public class CamaraVer extends javax.swing.JFrame {
     private int id = 0;
     JButton button = new JButton();
     DefaultTableModel tbl;
-    public static Camara siguienteCamara;
     
     
     public CamaraVer() {
@@ -68,6 +68,9 @@ public class CamaraVer extends javax.swing.JFrame {
             String precio = jTable1.getModel().getValueAt(row, 3).toString();
             DatosCamara datos = new DatosCamara(id,marca,modelo,precio);
             datos.setVisible(true);
+            
+            
+            
         }
         };
     jTable1.addMouseListener(evento);
@@ -76,6 +79,7 @@ public class CamaraVer extends javax.swing.JFrame {
         CamaraBDD camaras = new CamaraBDD();
         ArrayList<Camara> lista = camaras.readAll();
         
+        
         for (int i = 0; i < lista.size(); i++) {
             //Por cada objeto de la lista, se crea la fila de la tabla con los valores de los atributos
             Object[] row = { lista.get(i).getId(), lista.get(i).getMarca(), lista.get(i).getModelo(), lista.get(i).getPrecio() };
@@ -83,13 +87,13 @@ public class CamaraVer extends javax.swing.JFrame {
             
             tbl.addRow(row);
             
-            try{
-                siguienteCamara = camaras.read(lista.get(i+1).getModelo());
-            }catch(IndexOutOfBoundsException ex){
-                System.out.println("No hay más productos");
-            }
+            
             
         }
+        
+        
+        
+        
 
         jLabel2.setText("SE HAN ENCONTRADO "+lista.size()+" REGISTROS");
         
@@ -112,6 +116,7 @@ public class CamaraVer extends javax.swing.JFrame {
             tbl = (DefaultTableModel)jTable1.getModel();
 
             tbl.addRow(row);
+            
         }
         
         jLabel2.setText("SE HAN ENCONTRADO "+lista.size()+" REGISTROS");

@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -23,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DatosAccesorio extends javax.swing.JFrame {
 
+    private static int indice = 0;
     
     //El constructor recibe los datos del Accesorio para ser mostrados en la ventana
     public DatosAccesorio(String id, String marca, String modelo, String precio,String tipo) {
@@ -79,6 +81,8 @@ public class DatosAccesorio extends javax.swing.JFrame {
         mensaje = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         campoTipo = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -149,6 +153,20 @@ public class DatosAccesorio extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("TIPO");
 
+        jButton3.setText(">");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("<");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,6 +183,10 @@ public class DatosAccesorio extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel4)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton3))
                                     .addComponent(campoTipo)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,7 +208,11 @@ public class DatosAccesorio extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,6 +287,68 @@ public class DatosAccesorio extends javax.swing.JFrame {
         super.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        try{
+            indice++;
+            this.dispose();
+            AccesorioBDD accesorios = new AccesorioBDD();
+            ArrayList<Accesorio> lista = accesorios.readAll();
+
+            Accesorio siguiente = lista.get(indice);
+
+
+            DatosAccesorio v = new DatosAccesorio(""+siguiente.getId(), siguiente.getMarca(), siguiente.getModelo(), ""+siguiente.getPrecio(), ""+siguiente.getTipo());
+            v.setVisible(true);
+        }catch(IndexOutOfBoundsException ex){
+            
+            indice = 0;
+            AccesorioBDD accesorios = new AccesorioBDD();
+            ArrayList<Accesorio> lista = accesorios.readAll();
+
+            Accesorio siguiente = lista.get(indice);
+
+
+            DatosAccesorio v = new DatosAccesorio(""+siguiente.getId(), siguiente.getMarca(), siguiente.getModelo(), ""+siguiente.getPrecio(), ""+siguiente.getTipo());
+            v.setVisible(true);
+            
+        }
+        
+        
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+        try{
+            indice--;
+            this.dispose();
+            AccesorioBDD accesorios = new AccesorioBDD();
+            ArrayList<Accesorio> lista = accesorios.readAll();
+
+            Accesorio siguiente = lista.get(indice);
+
+
+            DatosAccesorio v = new DatosAccesorio(""+siguiente.getId(), siguiente.getMarca(), siguiente.getModelo(), ""+siguiente.getPrecio(), ""+siguiente.getTipo());
+            v.setVisible(true);
+        }catch(IndexOutOfBoundsException ex){
+            
+           
+            AccesorioBDD accesorios = new AccesorioBDD();
+            ArrayList<Accesorio> lista = accesorios.readAll();
+            
+            indice = lista.size()-1;
+            
+            Accesorio siguiente = lista.get(indice);
+
+
+            DatosAccesorio v = new DatosAccesorio(""+siguiente.getId(), siguiente.getMarca(), siguiente.getModelo(), ""+siguiente.getPrecio(), ""+siguiente.getTipo());
+            v.setVisible(true);
+            
+        }
+
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -307,6 +395,8 @@ public class DatosAccesorio extends javax.swing.JFrame {
     private static javax.swing.JTextField campoTipo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
