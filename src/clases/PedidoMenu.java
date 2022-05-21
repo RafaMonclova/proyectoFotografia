@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -150,7 +151,13 @@ public class PedidoMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_botonVerActionPerformed
 
     private void botonVer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVer1ActionPerformed
-        // TODO add your handling code here:
+        
+        
+        FacturaCrear v = new FacturaCrear();
+        v.setVisible(true);
+        
+        
+        
     }//GEN-LAST:event_botonVer1ActionPerformed
 
     /**

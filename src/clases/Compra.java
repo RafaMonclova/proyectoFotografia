@@ -65,6 +65,11 @@ public class Compra {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
+
+    @Override
+    public String toString() {
+        return codigo + ";" + modelo + ";" +cantidad + ";" + precio;
+    }
     
     
     

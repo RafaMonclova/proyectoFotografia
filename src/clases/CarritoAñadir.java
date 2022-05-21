@@ -167,6 +167,11 @@ public class CarritoAñadir extends javax.swing.JFrame {
         });
 
         elegirModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        elegirModelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                elegirModeloActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -339,6 +344,10 @@ public class CarritoAñadir extends javax.swing.JFrame {
        
         
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void elegirModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirModeloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_elegirModeloActionPerformed
 
     /**
      * @param args the command line arguments

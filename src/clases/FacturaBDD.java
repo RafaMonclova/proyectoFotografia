@@ -13,6 +13,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.sql.*;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -28,7 +29,7 @@ public class FacturaBDD implements FacturaDAO{
     @Override
     public void update(Factura f) {
         //Recibe los atributos de "f" y guarda la cadena
-        String update = "UPDATE FACTURA SET CODIGO="+f.getCodigo()+","+"DNI='"+f.getDni()+"',"+"COD_COMPRA="+f.getCodCompra()+","+"PRECIO="+f.getImporteTotal()+"WHERE CODIGO="+f.getCodigo();
+        String update = "UPDATE FACTURA SET CODIGO="+f.getCodigo()+","+"DNI='"+f.getDni()+"',"+"COMPRAS='"+f.listaAString()+"',"+"PRECIO="+f.getImporteTotal()+"WHERE CODIGO="+f.getCodigo();
            
 		 try{	
 		 	 //Conexión a la BDD. La clase Login contiene los atributos con el servidor, usuario y clave para conectarse
@@ -67,6 +68,7 @@ public class FacturaBDD implements FacturaDAO{
         
         
         
+        
         try{	
 		 	 //Conexión a la BDD. La clase Login contiene los atributos con el servidor, usuario y clave para conectarse
 			 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -75,7 +77,7 @@ public class FacturaBDD implements FacturaDAO{
                          //Se prepara el Statement con la cadena, y un InputStream creado con  la ruta de la imagen recibida
                          PreparedStatement ps = null;
                          InputStream is = null;
-			ps = connection.prepareCall("INSERT INTO FACTURA VALUES("+f.getCodigo()+",'"+f.getDni()+"',"+f.getCodCompra()+","+f.getImporteTotal()+")");
+			ps = connection.prepareCall("INSERT INTO FACTURA VALUES("+f.getCodigo()+",'"+f.getDni()+"','"+f.listaAString()+"',"+f.getImporteTotal()+")");
                         
    
 			 try{
@@ -152,6 +154,8 @@ public class FacturaBDD implements FacturaDAO{
         
         Factura f = null;
         
+        ArrayList<Compra> listaCompras = new ArrayList();
+        
         //Se guarda la consulta por codigo recibido
         String query="SELECT * FROM FACTURA WHERE CODIGO="+codigo;
 				
@@ -170,9 +174,22 @@ public class FacturaBDD implements FacturaDAO{
 		 
 		 
 		 while(result.next()){ 
-                         //Crea el objeto con los campos guardados en la tabla
                          
-                         f = new Factura(result.getInt(1),result.getString(2),result.getInt(3),result.getDouble(4));
+                        String[] compras = result.getString(3).split("\\/");
+                        
+                        for (int i = 0; i < compras.length; i++) {
+                         
+                            String [] parametroCompra = compras[i].split("\\;");
+                            
+                            Compra c = new Compra(Integer.parseInt(parametroCompra[0]),parametroCompra[1],Integer.parseInt(parametroCompra[2]),Double.parseDouble(parametroCompra[3]));
+                            
+                            listaCompras.add(c);
+                            
+                        }
+                     
+                         
+                         f = new Factura(result.getInt(1),result.getString(2),result.getDouble(4));
+                         f.setCompras(listaCompras);
 		 }
 		 
 		 result.close(); 
@@ -198,8 +215,8 @@ public class FacturaBDD implements FacturaDAO{
     @Override
     public ArrayList<Factura> readAll() {
         
+        ArrayList<Compra> listaCompras = new ArrayList();
         ArrayList<Factura> facturas = new ArrayList();
-        
         //Consulta que devuelve todos los registros de FACTURA
         String query="SELECT * FROM FACTURA";
 				
@@ -218,11 +235,29 @@ public class FacturaBDD implements FacturaDAO{
 		 
 		 
 		 while(result.next()){ 
-                         //Crea el objeto y lo añade a la lista. Se realiza por cada registro encontrado
-                         Factura f = new Factura(result.getInt(1),result.getString(2),result.getInt(3),result.getDouble(4));
-                         facturas.add(f);
+
+                        String[] compras = result.getString(3).split("\\/");
+                        
+                        for (int i = 0; i < compras.length; i++) {
+                         
+                            String [] parametroCompra = compras[i].split("\\;");
+                            
+                            Compra c = new Compra(Integer.parseInt(parametroCompra[0]),parametroCompra[1],Integer.parseInt(parametroCompra[2]),Double.parseDouble(parametroCompra[3]));
+                            
+                            listaCompras.add(c);
+                            
+                            
+                        }
+                     
+                         
+                        Factura f = new Factura(result.getInt(1),result.getString(2),result.getDouble(4));
+                        f.setCompras(listaCompras);
+                        facturas.add(f);
+                        listaCompras = new ArrayList();
+                        
 		 }
 		 
+                 
 		 result.close(); 
 		 statement.close();
 		 connection.close();
