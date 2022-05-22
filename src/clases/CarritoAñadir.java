@@ -96,13 +96,14 @@ public class CarritoAñadir extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         elegirModelo = new javax.swing.JComboBox<>();
 
-        setTitle("NUEVA CÁMARA");
+        setTitle("AÑADIR AL CARRITO");
         setResizable(false);
 
         jLabel1.setBackground(new java.awt.Color(102, 102, 255));
         jLabel1.setFont(new java.awt.Font("Fira Sans Heavy", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/carrito.png"))); // NOI18N
         jLabel1.setText("CARRITO");
         jLabel1.setMaximumSize(new java.awt.Dimension(100, 100));
         jLabel1.setMinimumSize(new java.awt.Dimension(100, 100));
